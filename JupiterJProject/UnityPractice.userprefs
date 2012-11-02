@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\PlayerStuff\FollowMouse.js">
+    <Files>
+      <File FileName="Assets\MyScripts\PlayerStuff\AsteroidsPlayer.js" Line="134" Column="22" />
+      <File FileName="Assets\MyScripts\GravityConcept\GravitationScript.js" Line="12" Column="9" />
+      <File FileName="Assets\MyScripts\GravityConcept\GravityCamera.js" Line="64" Column="32" />
+      <File FileName="Assets\MyScripts\PlayerStuff\FollowMouse.js" Line="15" Column="117" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

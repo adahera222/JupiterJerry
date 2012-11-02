@@ -1,0 +1,20 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\PlayerStuff\CameraScript.js">
+    <Files>
+      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidBehaviour.js" Line="391" Column="115" />
+      <File FileName="Assets\MyScripts\MenuScripts\Menu.js" Line="228" Column="42" />
+      <File FileName="Assets\MyScripts\PlayerStuff\AsteroidsPlayer.js" Line="99" Column="15" />
+      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidSpawn.js" Line="57" Column="1" />
+      <File FileName="Assets\MyScripts\PlayerStuff\CameraScript.js" Line="386" Column="68" />
+      <File FileName="Assets\MyScripts\Items\FlareScript.js" Line="11" Column="37" />
+      <File FileName="Assets\MyScripts\RestartCheck.js" Line="11" Column="1" />
+      <File FileName="Assets\MyScripts\Items\GlowShockBehaviour.js" Line="14" Column="80" />
+      <File FileName="Assets\MyScripts\GUIScripts\RecordTime.js" Line="19" Column="18" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
