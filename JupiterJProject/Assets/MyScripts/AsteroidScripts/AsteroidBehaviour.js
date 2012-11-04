@@ -114,14 +114,14 @@ function Start () {
 function Update(){
 
 /////////////   Round degression on Pickup spawn chances to cut down on item bloat    /////////////////
-	pickupRoundAdjustment = 1 - ((CameraScript.roundNum - 1) * 0.05);
-	pickupChanceHeal = pickupChanceHealDefault * pickupRoundAdjustment;
-	pickupChanceROF = pickupChanceROFDefault * pickupRoundAdjustment;
-	pickupChanceBomb = pickupChanceBombDefault * pickupRoundAdjustment;
-	pickupChanceWeapons = pickupChanceWeaponsDefault * pickupRoundAdjustment;
-	pickupChanceMegaBomb = pickupChanceMegaBombDefault * pickupRoundAdjustment;
-	pickupChanceShield = pickupChanceShieldDefault * pickupRoundAdjustment;
-	pickupChanceLights = pickupChanceLightsDefault * pickupRoundAdjustment;
+	//pickupRoundAdjustment = 1 - ((CameraScript.roundNum - 1) * 0.05);
+	//pickupChanceHeal = pickupChanceHealDefault * pickupRoundAdjustment;
+	//pickupChanceROF = pickupChanceROFDefault * pickupRoundAdjustment;
+	//pickupChanceBomb = pickupChanceBombDefault * pickupRoundAdjustment;
+	//pickupChanceWeapons = pickupChanceWeaponsDefault * pickupRoundAdjustment;
+	//pickupChanceMegaBomb = pickupChanceMegaBombDefault * pickupRoundAdjustment;
+	//pickupChanceShield = pickupChanceShieldDefault * pickupRoundAdjustment;
+	//pickupChanceLights = pickupChanceLightsDefault * pickupRoundAdjustment;
 	
 /////////////  Asteroid Destroy for Dev Cheating   /////////////////
 	if (Input.GetKeyDown("0")){
@@ -400,12 +400,14 @@ function HPCheck(bulletTag:String){
 				
 				} else if (GPKMath.WithinRangef(randomX, pickupChanceBomb, pickupChanceWeapons)){
 					
-						var weaponSelect = Random.Range(0,5);
+						var weaponSelect = Random.Range(0,7);
 						if (!(AsteroidsPlayer.currentWeapon == "SinglePulse" && weaponSelect == 0) &&
 							!(AsteroidsPlayer.currentWeapon == "DoublePulse" && weaponSelect == 1) &&
 							!(AsteroidsPlayer.currentWeapon == "TriplePulse" && weaponSelect == 2) &&
 							!(AsteroidsPlayer.currentWeapon == "MiniBomb" && weaponSelect == 3) &&
-							!(AsteroidsPlayer.currentWeapon == "BeamLaser" && weaponSelect == 4)){
+							!(AsteroidsPlayer.currentWeapon == "BeamLaser" && weaponSelect == 4) &&
+							!(AsteroidsPlayer.currentWeapon == "Aura" && weaponSelect == 5) &&
+							!(AsteroidsPlayer.currentWeapon == "Waveform" && weaponSelect == 6)){
 								var pickupWeapon = Instantiate(pickupPrefabWeapons[weaponSelect], gameTrans.position, Quaternion.identity);
 								pickupWeapon.transform.eulerAngles.y = Random.Range(1.0,359.9);
 						}

@@ -65,6 +65,7 @@ var fireBomb:FireBomb;
 var shieldUp:ShieldUp;
 var fireMini:FireMiniBomb;
 var fireBeam:FireBeamLaser;
+var fireAura:FireAura;
 
 function Start(){
 
@@ -407,5 +408,6 @@ function EnableDisablePlayer(){
 	shieldUp.enabled = !shieldUp.enabled;
 	//player.GetComponent(ClearLevel).enabled = !player.GetComponent(ClearLevel).enabled;
 	fireBeam.enabled = !fireBeam.enabled;
+	fireAura.enabled = !fireAura.enabled;
 	
 }

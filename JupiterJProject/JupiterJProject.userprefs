@@ -1,18 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\WeaponScripts\BombShockBehaviour.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\WeaponScripts\WaveformScript.js">
     <Files>
-      <File FileName="Assets\MyScripts\WeaponScripts\BombShockBehaviour.js" Line="80" Column="20" />
-      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidBehaviour.js" Line="252" Column="13" />
+      <File FileName="Assets\MyScripts\WeaponScripts\BombShockBehaviour.js" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidBehaviour.js" Line="410" Column="52" />
       <File FileName="Assets\MyScripts\MenuScripts\Menu.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\PlayerStuff\AsteroidsPlayer.js" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\PlayerStuff\AsteroidsPlayer.js" Line="415" Column="48" />
       <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidSpawn.js" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\PlayerStuff\CameraScript.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\Items\FlareScript.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\RestartCheck.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\Items\GlowShockBehaviour.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\GUIScripts\RecordTime.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\WeaponScripts\BombBehaviour.js" Line="44" Column="3" />
+      <File FileName="Assets\MyScripts\WeaponScripts\AuraScript.js" Line="39" Column="6" />
+      <File FileName="Assets\MyScripts\WeaponScripts\BulletEnemyCheck.js" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\KillParticle.js" Line="8" Column="33" />
+      <File FileName="Assets\MyScripts\WeaponScripts\FireWave.js" Line="30" Column="39" />
+      <File FileName="Assets\MyScripts\WeaponScripts\WaveformScript.js" Line="57" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

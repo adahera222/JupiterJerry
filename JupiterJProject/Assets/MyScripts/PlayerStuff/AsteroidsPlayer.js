@@ -409,11 +409,15 @@ function OnTriggerEnter (hostile : Collider) {
 					pickupMessage.guiText.text = "Mini-Bomb Launcher";
 				if (pickupScript.weaponType == "BeamLaser")
 					pickupMessage.guiText.text = "LasOr Beam Pew-Pew!";
+				if (pickupScript.weaponType == "Aura")
+					pickupMessage.guiText.text = "Disintegration Field";
+				if (pickupScript.weaponType == "Waveform")
+					pickupMessage.guiText.text = "Wave Emitter";
 				Destroy(hostile.transform.parent.gameObject, 0.1);
 				//if (pickupScript.weaponType == currentWeapon)
 				//	Resource2Script.resource2Num += 2;
 				//else {
-					currentWeapon = pickupScript.weaponType;
+				currentWeapon = pickupScript.weaponType;
 				//	if (pickupScript.weaponType == "TriplePulse")
 				//		Resource2Script.resource2Num = gameObject.GetComponent(FirePulseLaser).startMin2TriplePulse;
 				//	else
