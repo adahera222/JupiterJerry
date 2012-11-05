@@ -1,18 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\WeaponScripts\WaveformScript.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\PlayerStuff\CameraScript.js">
     <Files>
-      <File FileName="Assets\MyScripts\WeaponScripts\WaveformScript.js" Line="47" Column="26" />
+      <File FileName="Assets\MyScripts\WeaponScripts\WaveformScript.js" Line="54" Column="55" />
       <File FileName="Assets\MyScripts\WeaponScripts\BombShockBehaviour.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidBehaviour.js" Line="79" Column="18" />
+      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidBehaviour.js" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\MenuScripts\Menu.js" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\PlayerStuff\AsteroidsPlayer.js" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidSpawn.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\PlayerStuff\CameraScript.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\WeaponScripts\AuraScript.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\WeaponScripts\BulletEnemyCheck.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\KillParticle.js" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\PlayerStuff\CameraScript.js" Line="416" Column="1" />
       <File FileName="Assets\MyScripts\WeaponScripts\FireWave.js" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\WeaponScripts\FireBeamLaser.js" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\WeaponScripts\BeamLaserScript.js" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\PauseSound.js" Line="15" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

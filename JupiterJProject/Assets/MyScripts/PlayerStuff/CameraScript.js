@@ -1,6 +1,6 @@
 #pragma strict
 
-var target : Transform;
+var target:Transform;
 var alienPortal:Transform;
 var alienPortalScript:AlienPortal;
 var buttonWidth=150.0;
@@ -66,6 +66,7 @@ var shieldUp:ShieldUp;
 var fireMini:FireMiniBomb;
 var fireBeam:FireBeamLaser;
 var fireAura:FireAura;
+var fireWave:FireWave;
 
 function Start(){
 
@@ -203,9 +204,12 @@ function LateUpdate () {
 	if (Input.GetKeyDown("escape") && RestartCheck.enableRestart == false){
 		audio.Play();
 		pause = !pause;
-		pauseSound = !pauseSound;
 		EnableDisablePlayer();
 	}
+	if (pause == true)
+		pauseSound = true;
+	else
+		pauseSound = false;
 	
 }
 
@@ -409,5 +413,6 @@ function EnableDisablePlayer(){
 	//player.GetComponent(ClearLevel).enabled = !player.GetComponent(ClearLevel).enabled;
 	fireBeam.enabled = !fireBeam.enabled;
 	fireAura.enabled = !fireAura.enabled;
+	fireWave.enabled = !fireWave.enabled;
 	
 }

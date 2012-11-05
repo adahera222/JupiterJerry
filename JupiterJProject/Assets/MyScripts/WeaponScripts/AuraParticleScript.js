@@ -9,7 +9,8 @@ function Start () {
 }
 
 function Update () {
-	transform.position = player.position;
+	if (player)
+		transform.position = player.position;
 	if (!Input.GetButton("Fire1") || fireAura.charge == 0)
 		particleSystem.enableEmission = false;
 }

@@ -44,15 +44,15 @@ function OnTriggerEnter(hostile:Collider){
     		asteroidBehave = hostile.GetComponent(AsteroidBehaviour);
     		asteroidBehave.curHP -= dmg;
     		var heading = hostile.transform.position - transform.position;
-    		Debug.Log(heading);
     		hostile.rigidbody.AddForce(heading * repell);
     		
     		waveParentObject.hits++;
     		waveParentObject.alreadyHit = hostile.gameObject;
     	}
-		if (hostileTag == "AsteroidG" || hostileTag == "AsteroidH") {
+		if (hostileTag == "AsteroidG" || hostileTag == "AsteroidH" && hostile.gameObject) {
     		heading = hostile.transform.position - transform.position;
-    		hostile.rigidbody.AddForce(heading * repell);
+    		hostile.rigidbody.AddForce(heading * (repell/10));
+    		waveParentObject.alreadyHit = hostile.gameObject;
     		Destroy(gameObject);
     	}
 	}
