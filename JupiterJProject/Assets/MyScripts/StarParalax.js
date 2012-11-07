@@ -6,7 +6,7 @@ var posZ:float;
 var depth:float;
 var paralaxMult:float;
 
-function Update () {
+function LateUpdate () {
 	
 	if (playerPos){
 		posX = playerPos.transform.position.x;

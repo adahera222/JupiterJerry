@@ -7,7 +7,7 @@ var scaleStart:float;
 var scaleRate:float;
 
 var dmg:float;
-var dmgBase:float;
+//var dmgBase:float;
 var repell:float;
 
 var hits = 0;
@@ -32,7 +32,8 @@ function Update () {
 		if (hits >= maxHits)
 			Destroy(gameObject);	
 	}
-	dmg = dmgBase + (Resource2Script.resource2Num - 4);
+	///////    Damage increase with weapon upgrades    /////////
+	//dmg = dmgBase + (Resource2Script.resource2Num - 4);
 }
 
 function OnTriggerEnter(hostile:Collider){

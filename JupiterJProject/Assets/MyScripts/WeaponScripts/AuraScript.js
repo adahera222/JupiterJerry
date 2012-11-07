@@ -17,7 +17,7 @@ function Start () {
 function Update () {
 	transform.position = player.position;
 	fireAura.charge -= Time.deltaTime;
-	if (fireAura.charge <= 0.0 || !Input.GetButton("Fire1"))
+	if (fireAura.charge <= 0.0 || !Input.GetButton("Fire1") || AsteroidsPlayer.currentWeapon != "Aura")
 		Destroy(gameObject);
 	curScale = defaultScale + ((Resource2Script.resource2Num - 4) * rez2ScaleBooster);
 	transform.localScale = Vector3(curScale, curScale, curScale);

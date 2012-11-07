@@ -42,7 +42,7 @@ function Update () {
 function FixedUpdate () {
 	
 	//Resource 2 dependant recharge decrease
-	rechargeDelay = 1 / Resource2Script.resource2Num;
+	rechargeDelay = 1 / (Resource2Script.resource2Num * 0.85);
 	
 	if (canFire == false){
 		ammoRecharge += Time.deltaTime;

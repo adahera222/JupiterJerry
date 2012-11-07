@@ -4,13 +4,13 @@ var bombPrefab:Transform;
 var bombSpd:float;
 var canFire = false;
 var ammoRecharge:float;
-var rechargeDelay=3;
+var rechargeDelay=3.0;
 var bombAmmo = 0;
 var zeroBombChanceBoost:float;
 var bombLaunchSound:AudioClip;
 var bombLaunchVolume:float;
-var bombReadySound:AudioClip;
-var bombReadyVolume:float;
+//var bombReadySound:AudioClip;
+//var bombReadyVolume:float;
 var notEnoughMineralsSound:Transform;
 var playBombReadySound = false;
 
@@ -44,7 +44,7 @@ function Update () {
 		bomb.rigidbody.AddForce(transform.forward * bombSpd);
 		
 		bombAmmo--;
-		AudioSource.PlayClipAtPoint(bombLaunchSound, transform.position, bombLaunchVolume);
+		//AudioSource.PlayClipAtPoint(bombLaunchSound, transform.position, bombLaunchVolume);
 		canFire = false;
 	}
 
@@ -64,10 +64,10 @@ function FixedUpdate () {
 	if (bombAmmo > 0 && ammoRecharge >= rechargeDelay && canFire == false) {
 		canFire = true;
 		ammoRecharge = 0;
-		if (playBombReadySound == true){
-			AudioSource.PlayClipAtPoint(bombReadySound, transform.position, bombReadyVolume);
-			playBombReadySound = false;
-		}
+		//if (playBombReadySound == true){
+		//	AudioSource.PlayClipAtPoint(bombReadySound, transform.position, bombReadyVolume);
+		//	playBombReadySound = false;
+		//}
 	}
 	if (canFire == true)
 		bombReady.guiText.text = "Bombs: (" + bombAmmo + ")    Bomb Ready";
