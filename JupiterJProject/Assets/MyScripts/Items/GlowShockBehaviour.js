@@ -14,6 +14,7 @@ function Awake () {
 	AudioSource.PlayClipAtPoint(glowShockSound, transform.position, glowShockVol);
 	expandStart = expand;
 	exSizeCheck = transform;
+	transform.localRotation.eulerAngles.y = Random.Range(0, 359);
 
 }
 

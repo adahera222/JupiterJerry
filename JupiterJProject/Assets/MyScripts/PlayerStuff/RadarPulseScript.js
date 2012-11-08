@@ -19,6 +19,7 @@ function Awake () {
 	exSizeCheck = transform;
 	expandStart = expand;
 	transPos = transform.position;
+	transform.localRotation.eulerAngles.y = Random.Range(0, 359);
 
 }
 

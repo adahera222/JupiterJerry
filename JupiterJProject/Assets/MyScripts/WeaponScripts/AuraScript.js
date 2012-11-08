@@ -1,6 +1,7 @@
 #pragma strict
 
 var dmg:float;
+var dmgBase:float;
 var repell:float;
 var asteroidBehave:AsteroidBehaviour;
 var player:Transform;
@@ -21,6 +22,7 @@ function Update () {
 		Destroy(gameObject);
 	curScale = defaultScale + ((Resource2Script.resource2Num - 4) * rez2ScaleBooster);
 	transform.localScale = Vector3(curScale, curScale, curScale);
+	dmg = dmgBase + ((Resource2Script.resource2Num - 4) * 2);
 }
 
 function OnTriggerStay (hostile:Collider) {

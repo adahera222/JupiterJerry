@@ -34,6 +34,7 @@ function Awake () {
 	shockDmg *= asterPlayer.playerHealthMax;
 	shockDmgMin *= asterPlayer.playerHealthMax;
 	asterSpawn = GameObject.Find("AsteroidSpawn").GetComponent(AsteroidSpawn);
+	transform.localRotation.eulerAngles.y = Random.Range(0, 359);
 
 }
 
