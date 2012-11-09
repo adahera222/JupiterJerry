@@ -8,6 +8,7 @@ var dmgMultiplier:float;
 var shieldHealthMax:float;
 var fizzlePrefab:Transform;
 var playerCol:GameObject;
+var shieldRender:Transform;
 
 var shieldUp:ShieldUp;
 var asteroidSpawn:AsteroidSpawn;
@@ -22,6 +23,7 @@ function Start () {
 	shieldUp = player.GetComponent(ShieldUp);
 	playerCol = GameObject.Find("PlayerCollider");
 	asteroidSpawn = GameObject.Find("AsteroidSpawn").GetComponent(AsteroidSpawn);
+	shieldRender = GameObject.Find("ShieldRender").transform;
 
 	shieldHealth = playerScript.playerHealthMax;
 	shieldHealthMax = playerScript.playerHealthMax;
@@ -30,7 +32,9 @@ function Start () {
 
 function Update () {
 	
-	renderer.material.color.a = (shieldHealth / shieldHealthMax) * 0.45 + 0.15;
+	shieldRender.renderer.material.color.a = ((shieldHealth / shieldHealthMax) * 0.95) + 0.05;
+	
+	transform.localRotation = Quaternion.identity;
 	
 	if (transform.localPosition != Vector3(0,0,0))
 		transform.localPosition = Vector3(0,0,0);

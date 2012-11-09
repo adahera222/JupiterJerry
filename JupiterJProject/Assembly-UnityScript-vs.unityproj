@@ -121,6 +121,7 @@
      <Compile Include="Assets\MyScripts\WeaponScripts\FireMiniBomb.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\FirePulseLaser.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\FireWave.js" />
+     <Compile Include="Assets\MyScripts\WeaponScripts\MiniBombAlphaAdjust.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\WaveformScript.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\bulletDestroy.js" />
      <Compile Include="Assets\Standard Assets (Mobile)\Scripts\CameraRelativeControl.js" />

@@ -8,6 +8,7 @@ var player:Transform;
 var fireAura:FireAura;
 var curScale:float;
 var defaultScale:float;
+var scaleSpd:float;
 var rez2ScaleBooster:float;
 
 function Start () {
@@ -21,7 +22,12 @@ function Update () {
 	if (fireAura.charge <= 0.0 || !Input.GetButton("Fire1") || AsteroidsPlayer.currentWeapon != "Aura")
 		Destroy(gameObject);
 	curScale = defaultScale + ((Resource2Script.resource2Num - 4) * rez2ScaleBooster);
-	transform.localScale = Vector3(curScale, curScale, curScale);
+	if (transform.localScale.x < curScale){
+		if (curScale - transform.localScale.x >= scaleSpd * Time.deltaTime)
+			transform.localScale += Vector3(scaleSpd * Time.deltaTime, scaleSpd * Time.deltaTime, scaleSpd * Time.deltaTime);
+		else
+			transform.localScale = Vector3(curScale, curScale, curScale);
+	}
 	dmg = dmgBase + ((Resource2Script.resource2Num - 4) * 2);
 }
 

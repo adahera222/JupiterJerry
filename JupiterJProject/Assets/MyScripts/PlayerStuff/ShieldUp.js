@@ -14,7 +14,6 @@ function Start () {
 }
 
 function Update () {
-
 	if (shieldUpChk == false && shieldUp == true){
 		
 		var shield = Instantiate(playerShield, transform.position, Quaternion.identity);

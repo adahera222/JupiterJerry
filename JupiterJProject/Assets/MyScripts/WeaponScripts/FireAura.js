@@ -14,7 +14,7 @@ function Update () {
 	if (AsteroidsPlayer.currentWeapon == "Aura"){
 		if (Input.GetButtonDown("Fire1")){
 			var aura = Instantiate(auraPrefab, transform.position, Quaternion.identity);
-			var auraPart = Instantiate(auraParticlePrefab, transform.position, Quaternion.identity);
+			//var auraPart = Instantiate(auraParticlePrefab, transform.position, Quaternion.identity);
 		}
 		guiCharge.enabled = true;
 		guiCharge.guiText.text = "Field charge: " + ((Mathf.Round(charge * 100)) / 100) + " sec";
