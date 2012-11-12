@@ -1,21 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\WeaponScripts\MiniBombAlphaAdjust.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\AsteroidScripts\AsteroidSpawn.js">
     <Files>
+      <File FileName="Assets\MyScripts\WeaponScripts\BombShockBehaviour.js" Line="48" Column="24" />
+      <File FileName="Assets\MyScripts\PlayerStuff\AlienPortal.js" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\WeaponScripts\AuraScript.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidBehaviour.js" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidBehaviour.js" Line="270" Column="54" />
       <File FileName="Assets\MyScripts\MenuScripts\Menu.js" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\PlayerStuff\AsteroidsPlayer.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidSpawn.js" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidSpawn.js" Line="168" Column="66" />
       <File FileName="Assets\MyScripts\PlayerStuff\CameraScript.js" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\StarParalax.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\WeaponScripts\FireBomb.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\WeaponScripts\FireWave.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\WeaponScripts\BombShockBehaviour.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\WeaponScripts\FireAura.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\PlayerStuff\ShieldUp.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\PlayerStuff\PlayerShieldScript.js" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\WeaponScripts\MiniBombAlphaAdjust.js" Line="4" Column="39" />
+      <File FileName="Assets\MyScripts\CloudScale.js" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidShockwave.js" Line="46" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

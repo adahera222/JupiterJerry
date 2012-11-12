@@ -55,6 +55,7 @@
      <Compile Include="Assets\MyScripts\AsteroidScripts\PusherShockwave.js" />
      <Compile Include="Assets\MyScripts\AudioScripts\LaserSoundScript.js" />
      <Compile Include="Assets\MyScripts\CheatCodes.js" />
+     <Compile Include="Assets\MyScripts\CloudScale.js" />
      <Compile Include="Assets\MyScripts\GPKMath.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\DmgTicker.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\GameTime.js" />

@@ -31,6 +31,12 @@ var asteroidPrefabS:Transform;
 var asteroidPrefabSx:Transform;
 var asteroidPrefabMx:Transform;
 
+var asterSmPoints = 1;
+var asterMedPoints = 3;
+var asterBigPoints = 7;
+var asterHugePoints = 37;
+var asterGigPoints = 158;
+
 var burstSpdMinMBase = 50.0;
 var burstSpdMaxMBase = 100.0;
 var burstSpdMinSBase = 50.0;

@@ -43,7 +43,7 @@ function FixedUpdate () {
 	expand += expandRate * Time.deltaTime;
 	exSizeCheck.localScale = Vector3(expand, expand / 2, expand);
 	if (exSizeCheck.localScale.x >= expandLimit){
-		Destroy(gameObject);
+		Destroy(transform.parent.gameObject);
 	}
 
 }
