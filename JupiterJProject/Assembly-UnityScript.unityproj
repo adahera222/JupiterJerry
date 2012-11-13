@@ -63,6 +63,8 @@
      <Compile Include="Assets\MyScripts\GUIScripts\ResourceTicker.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\ScoreKeeper.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\VersionNumScript.js" />
+     <Compile Include="Assets\MyScripts\GUIScripts\WeaponCurrent.js" />
+     <Compile Include="Assets\MyScripts\GUIScripts\WeaponLvl.js" />
      <Compile Include="Assets\MyScripts\Generic3SoundScript.js" />
      <Compile Include="Assets\MyScripts\GravityConcept\CenterRotate.js" />
      <Compile Include="Assets\MyScripts\GravityConcept\FuelScript.js" />

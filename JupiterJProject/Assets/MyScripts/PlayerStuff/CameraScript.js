@@ -68,6 +68,7 @@ var fireBeam:FireBeamLaser;
 var fireAura:FireAura;
 var fireWave:FireWave;
 
+
 function Start(){
 
 	roundNum = 1;
@@ -218,11 +219,11 @@ function OnGUI(){
 //	if (startMessageEnable == true && RestartCheck.enableRestart == false)
 //		GUI.Label(Rect(Screen.width / 2 - 400, Screen.height / 2 - 175, 800, 50), "Gather " + GameObject.Find("PlayerShip").GetComponent(ClearLevel).mineralGoal + " minerals to arm Super Rock-Smasher 9000", restartStyle);
 
-	GUI.Label(Rect(Screen.width / 2 - 200, 0, 400, 50), "Round: " + roundNum + "        Asteroid Threat Level: " + asteroidSpawn.asteroidThreatLev, guiLevelStyle);
+//	GUI.Label(Rect(Screen.width / 2 - 200, 0, 400, 50), "Round: " + roundNum + "        Asteroid Threat Level: " + asteroidSpawn.asteroidThreatLev, guiLevelStyle);
 	
 //	if (Resource1Script.resourceNum >= clearLevel.mineralGoal && AsteroidSpawn.asteroidNumber != 0 && RestartCheck.enableRestart == false)
 //		GUI.Label(Rect(Screen.width / 2 - 200, Screen.height / 2 - 250, 400, 100), "Super Rock-Smasher 9000 Armed!\n\nActivating in: " + clearCountdownLabel, restartStyle);
-			
+	
 	if (pause == true){
 		
 		if (pauseMenuEnabled == true){

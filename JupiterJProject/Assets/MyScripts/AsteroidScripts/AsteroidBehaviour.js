@@ -187,15 +187,10 @@ function FixedUpdate(){
 	}
 	if (explosive == true){
 			fuse += Time.deltaTime;
-		if (fuse >= lifeTime || Input.GetKeyDown("0")){
+		if (fuse >= lifeTime){
+			Destroy(gameObject);
 			Instantiate(asterShockwave, transform.position, Quaternion.identity);
 			Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-			if (obTag != "AsteroidG"){
-				Destroy(gameObject);
-			} else if (obTag == "AsteroidG"){
-				curHP = 0;
-				//HPCheck("exploded");
-			}
 		} 
 	}
 
@@ -203,19 +198,6 @@ function FixedUpdate(){
 
 function OnTriggerEnter(object:Collider){
 
-	if (asterSpawn.curBurstLev >= lateGameExplodeThreshold && Application.loadedLevelName != "MainMenu"){ 
-		if (obTag != "AsteroidH" && obTag != "AsteroidG" && object.tag == "bullet"){
-			var lateGameExplodeChanceCalc = Random.Range(0.0,100.0);
-			if (lateGameExplodeChanceCalc <= lateGameExplodeChance){
-				Instantiate(asterShockwave, transform.position, Quaternion.identity);
-				curHP = 0;
-				HPCheck("notBullet");
-			}
-		}
-	}
-	if (object.tag == "ClearShock"){
-		Destroy(gameObject);
-	}
 	HPCheck(object.tag);
 }
 
@@ -249,6 +231,15 @@ function HPCheck(bulletTag:String){
 	if (curHP <= 0 && shot == false) {
 		shot = true;
 		Destroy(gameObject);
+		if (asterSpawn.curBurstLev >= lateGameExplodeThreshold && Application.loadedLevelName != "MainMenu"){ 
+			if (obTag != "AsteroidH" && obTag != "AsteroidG"){
+				var lateGameExplodeChanceCalc = Random.Range(0.0,100.0);
+				if (lateGameExplodeChanceCalc <= lateGameExplodeChance){
+					var pusher = Instantiate(asterShockwave, transform.position, Quaternion.identity);
+					pusher.transform.rotation.eulerAngles.y = Random.Range(0, 359);
+				}
+			}
+		}
 		if (bombed == false && asterSpawn.destroyAsteroids == false){
 			var audioSelection = Random.Range(0, 3);
 				AudioSource.PlayClipAtPoint(explosionSound[audioSelection], transform.position, explosionSoundVolume[audioSelection]);
@@ -432,7 +423,7 @@ function HPCheck(bulletTag:String){
 				ScoreTick();
 			}
 		}
-		
+		return(true);
 	}
 }
 

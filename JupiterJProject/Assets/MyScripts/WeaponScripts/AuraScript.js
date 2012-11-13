@@ -19,7 +19,7 @@ function Start () {
 function Update () {
 	transform.position = player.position;
 	fireAura.charge -= Time.deltaTime;
-	if (fireAura.charge <= 0.0 || !Input.GetButton("Fire1") || AsteroidsPlayer.currentWeapon != "Aura")
+	if (fireAura.charge <= 0.0 || !Input.GetButton("Fire1") || AsteroidsPlayer.currentWeapon != "Aura" || RestartCheck.crash == true)
 		Destroy(gameObject);
 	curScale = defaultScale + ((Resource2Script.resource2Num - 4) * rez2ScaleBooster);
 	if (transform.localScale.x < curScale){

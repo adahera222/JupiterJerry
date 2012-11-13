@@ -44,7 +44,7 @@ function Update () {
 		bomb.rigidbody.AddForce(transform.forward * bombSpd);
 		
 		bombAmmo--;
-		//AudioSource.PlayClipAtPoint(bombLaunchSound, transform.position, bombLaunchVolume);
+		AudioSource.PlayClipAtPoint(bombLaunchSound, transform.position, bombLaunchVolume);
 		canFire = false;
 	}
 

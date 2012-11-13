@@ -33,14 +33,13 @@ function FixedUpdate () {
 function OnTriggerEnter (hostile:Collider){
 	
 	var hostileTag = hostile.tag;
-	var hostileTransPos = hostile.transform.position;
 	
 	if ((hostileTag.Length == 9 && hostileTag.Substring(0,8) == "Asteroid") || hostileTag == "Player"){
 	
 		var augCurScale = exSizeCheck.localScale.x - expandStart;
 		var augMaxScale = expandLimit - expandStart;
 		var impact = shockForce * Mathf.Pow(((augMaxScale - augCurScale) / augMaxScale), 2);
-		var forceDir = hostileTransPos - transPos;
+		var forceDir = hostile.transform.position - transPos;
 		hostile.rigidbody.AddForce(forceDir * impact);
 	
 	}
