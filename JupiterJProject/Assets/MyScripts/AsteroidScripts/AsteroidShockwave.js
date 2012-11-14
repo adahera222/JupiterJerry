@@ -22,11 +22,9 @@ var pickupMessagePrefab:Transform;
 //var mineralFizzle:Transform;
 var transPos:Vector3;
 
-var scoreKeeper:ScoreKeeper;
 
 function Awake () {
 	
-	scoreKeeper = GameObject.Find("GUIScoreKeeper").GetComponent(ScoreKeeper);
 	exSizeCheck = transform;
 	expandStart = expand;
 	transPos = transform.position;

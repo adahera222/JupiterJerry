@@ -108,6 +108,9 @@ function Update () {
 		transform.renderer.material.color.a += alphaInterval * Time.deltaTime;
 	if (transform.renderer.material.color.a >= 1 && start == false){
 		audio.enabled = false;
+		if (Application.loadedLevelName == "DarkLevel")
+			GetComponent(GiveRadar).enabled = true;
+		GetComponent(FirePulseLaser).enabled = true;
 		start = true;
 	}
 	if (playerHealth < playerHealthMax)

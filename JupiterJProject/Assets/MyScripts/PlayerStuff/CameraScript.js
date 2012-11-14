@@ -67,7 +67,14 @@ var fireMini:FireMiniBomb;
 var fireBeam:FireBeamLaser;
 var fireAura:FireAura;
 var fireWave:FireWave;
+var giveRadar:GiveRadar;
 
+var healthCurrent:Texture;
+var healthGreen:Texture;
+var healthOrange:Texture;
+var healthRed:Texture;
+var healthShield:Texture;
+var fieldCharge:Texture;
 
 function Start(){
 
@@ -387,7 +394,29 @@ function OnGUI(){
 		
 //		GUI.Label(Rect(Screen.width /2 - 200, Screen.height / 2, 400, 200), nextLevelCountdownLabel, restartStyle);
 	}
+	var healthWidth = (asterPlayer.playerHealth / asterPlayer.playerHealthMax) * 150;
+	var shieldWidth = (shieldUp.shieldHealth / shieldUp.shieldHealthMax) * 151;
+	var fieldWidth = (fireAura.charge / fireAura.chargeMax) * 76;
+	if (asterPlayer.playerHealth / asterPlayer.playerHealthMax >= 0.66)
+		healthCurrent = healthGreen;
+	else if (asterPlayer.playerHealth / asterPlayer.playerHealthMax >= 0.33)
+		healthCurrent = healthOrange;
+	else
+		healthCurrent = healthRed;
 	
+	GUI.BeginGroup(Rect(40, 538, healthWidth, 31));
+		GUI.DrawTexture(Rect(0, 0, 150, 31), healthCurrent);
+			GUI.EndGroup();
+	
+	GUI.BeginGroup(Rect(213, 538, shieldWidth, 29));
+		GUI.DrawTexture(Rect(0, 0, 151, 29), healthShield);
+			GUI.EndGroup();
+	
+	if (AsteroidsPlayer.currentWeapon == "Aura"){
+		GUI.BeginGroup(Rect(681, 541, fieldWidth, 26));
+			GUI.DrawTexture(Rect(0, 0, 76, 26), fieldCharge);
+				GUI.EndGroup();
+	}
 	
 	GUI.DrawTexture(Rect(Screen.width / 2 - 50, Screen.height / 2 - 36, 100, 72), cameraBoxTex, ScaleMode.ScaleToFit, true, 0);
 }
@@ -415,5 +444,7 @@ function EnableDisablePlayer(){
 	fireBeam.enabled = !fireBeam.enabled;
 	fireAura.enabled = !fireAura.enabled;
 	fireWave.enabled = !fireWave.enabled;
+	if (Application.loadedLevelName == "DarkLevel")
+		giveRadar.enabled = !giveRadar.enabled;
 	
 }

@@ -38,7 +38,6 @@ function OnTriggerStay (hostile:Collider) {
     	asteroidBehave = hostile.GetComponent(AsteroidBehaviour);
     	asteroidBehave.curHP -= dmg * Time.deltaTime;
     	asteroidBehave.HPCheck("bullet");
-    	Debug.Log(asteroidBehave.curHP);
     }
     if (hostileTag == "AsteroidG" || hostileTag == "AsteroidH") {
     	var heading = hostile.transform.position - transform.position;

@@ -54,11 +54,8 @@ function FixedUpdate () {
 
 	if (canFire == false){
 		if (bombAmmo > 0) {
-			bombReady.guiText.text = "Bombs: (" + bombAmmo + ")    Bomb Reloading";
 			ammoRecharge += Time.deltaTime;
-			playBombReadySound = true;
-		} else {
-			bombReady.guiText.text = "Bombs: (" + bombAmmo + ")    <<Bombs Depleted>>";
+			//playBombReadySound = true;
 		}
 	}
 	if (bombAmmo > 0 && ammoRecharge >= rechargeDelay && canFire == false) {
@@ -69,8 +66,6 @@ function FixedUpdate () {
 		//	playBombReadySound = false;
 		//}
 	}
-	if (canFire == true)
-		bombReady.guiText.text = "Bombs: (" + bombAmmo + ")    Bomb Ready";
 	
 	if (bombAmmo == 0){
 		canFire = false;

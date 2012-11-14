@@ -63,6 +63,7 @@ function Update () {
 			pickupMessage2.GetComponent(PickupMessageScript).alphaInterval = 0.75;
 			message2 = true;
 			player.GetComponent(FireBomb).bombAmmo = 0;
+			player.GetComponent(FireBomb).canFire = false;
 		}
 		if (clock > 3.5){
 			ready = true;

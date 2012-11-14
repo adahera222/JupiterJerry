@@ -5,6 +5,8 @@ var playerCol:GameObject;
 var shieldUp = false;
 var shieldUpChk = false;
 var guiShield:GameObject;
+var shieldHealth:float;
+var shieldHealthMax:float;
 
 var playerShieldScript:PlayerShieldScript;
 
@@ -26,9 +28,10 @@ function Update () {
 		
 		
 	if (shieldUpChk == false){
-		guiShield.guiText.text = "<< Shield Inactive >>";
-		guiShield.transform.position.x = 0.65;
+		shieldHealth = 0;
+		shieldHealthMax = 0;
 	} else if (shieldUpChk == true){
-		guiShield.guiText.text = "Shield Strength: " + Mathf.Round((playerShieldScript.shieldHealth / playerShieldScript.shieldHealthMax) * 100) + " / 100%";
+		shieldHealth = playerShieldScript.shieldHealth;
+		shieldHealthMax = playerShieldScript.shieldHealthMax;
 	}
 }

@@ -13,7 +13,7 @@ function OnGUI () {
 
 	if (RestartCheck.enableRestart == false){
 	
-		guiText.text = "Asteroids Destroyed: " + score;
+		guiText.text = score.ToString();
 	}
 }
 

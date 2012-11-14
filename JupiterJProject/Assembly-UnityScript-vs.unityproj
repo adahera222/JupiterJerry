@@ -57,10 +57,15 @@
      <Compile Include="Assets\MyScripts\CheatCodes.js" />
      <Compile Include="Assets\MyScripts\CloudScale.js" />
      <Compile Include="Assets\MyScripts\GPKMath.js" />
+     <Compile Include="Assets\MyScripts\GUIScripts\BombLight.js" />
+     <Compile Include="Assets\MyScripts\GUIScripts\BombNum.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\DmgTicker.js" />
+     <Compile Include="Assets\MyScripts\GUIScripts\FieldCharge.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\GameTime.js" />
+     <Compile Include="Assets\MyScripts\GUIScripts\RadarLight.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\RecordTime.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\ResourceTicker.js" />
+     <Compile Include="Assets\MyScripts\GUIScripts\RoundNum.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\ScoreKeeper.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\VersionNumScript.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\WeaponCurrent.js" />
