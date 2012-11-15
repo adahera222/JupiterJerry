@@ -36,6 +36,7 @@ var pickupChanceWeapons:float;
 var pickupChanceMegaBomb:float;
 var pickupChanceShield:float;
 var pickupChanceLights:float;
+private var pickupPracticePenalty = 2.0;
 static var pickupFlareNum = 0;
 private var pickupRoundAdjustment:float;
 private var pickupChanceHealDefault:float;
@@ -86,6 +87,19 @@ function Awake(){
 }
 function Start () {
 	
+	if (Application.loadedLevelName == "PracticeLevel")
+		pickupPracticePenalty = 0.5;
+	else
+		pickupPracticePenalty = 1;
+		
+	pickupChanceHeal *= pickupPracticePenalty;
+	pickupChanceROF *= pickupPracticePenalty;
+	pickupChanceWeapons *= pickupPracticePenalty;
+	pickupChanceBomb *= pickupPracticePenalty;
+	pickupChanceMegaBomb *= pickupPracticePenalty;
+	pickupChanceShield *= pickupPracticePenalty;
+	pickupChanceLights *= pickupPracticePenalty;
+	
 	pickupChanceROF += pickupChanceHeal;
 	pickupChanceBomb += pickupChanceROF;
 	pickupChanceWeapons += pickupChanceBomb;
@@ -93,13 +107,13 @@ function Start () {
 	pickupChanceShield += pickupChanceMegaBomb;
 	pickupChanceLights += pickupChanceShield;
 	
-	pickupChanceHealDefault = pickupChanceHeal;
-	pickupChanceROFDefault = pickupChanceROF;
-	pickupChanceBombDefault = pickupChanceBomb;
-	pickupChanceWeaponsDefault = pickupChanceWeapons;
-	pickupChanceMegaBombDefault = pickupChanceMegaBomb;
-	pickupChanceShieldDefault = pickupChanceShield;
-	pickupChanceLightsDefault = pickupChanceLights;
+	//pickupChanceHealDefault = pickupChanceHeal;
+	//pickupChanceROFDefault = pickupChanceROF;
+	//pickupChanceBombDefault = pickupChanceBomb;
+	//pickupChanceWeaponsDefault = pickupChanceWeapons;
+	//pickupChanceMegaBombDefault = pickupChanceMegaBomb;
+	//pickupChanceShieldDefault = pickupChanceShield;
+	//pickupChanceLightsDefault = pickupChanceLights;
 	
 	curHP = startHP;
 	
@@ -331,7 +345,7 @@ function HPCheck(bulletTag:String){
     				//asterSpawn.MakeAsteroidS(-1, -0.8, gameTrans);
     				asterSpawn.MakeAsteroidSx(1.1, 0.66, gameTrans);
     				//asterSpawn.MakeAsteroidS(-1.4, 0.11, gameTrans);
-    			} else if (randomX <= gravityWellChance && CameraScript.roundNum >= gravityWellRound && AsteroidSpawn.gravityWellActive == false){
+    			} else if (randomX <= gravityWellChance && CameraScript.roundNum >= gravityWellRound && AsteroidSpawn.gravityWellActive == false && Application.loadedLevelName != "PracticeLevel"){
     				var gravityWell = Instantiate(gravityWellPrefab, transform.position, Quaternion.identity);
     			} else {
 			
@@ -357,7 +371,7 @@ function HPCheck(bulletTag:String){
 					asterSpawn.MakeAsteroidSx(0.4, 0.4, gameTrans);
 	        		asterSpawn.MakeAsteroidSx(-0.4, -0.4, gameTrans);
 	        		asterSpawn.MakeAsteroidSx(-0.4, 0.4, gameTrans);
-    			} else if (randomX <= gravityWellChance && CameraScript.roundNum >= gravityWellRound && AsteroidSpawn.gravityWellActive == false){
+    			} else if (randomX <= gravityWellChance && CameraScript.roundNum >= gravityWellRound && AsteroidSpawn.gravityWellActive == false && Application.loadedLevelName != "PracticeLevel"){
     				gravityWell = Instantiate(gravityWellPrefab, transform.position, Quaternion.identity);
     			} else {
     				asterSpawn.MakeAsteroidS(0.4, 0.4, gameTrans);

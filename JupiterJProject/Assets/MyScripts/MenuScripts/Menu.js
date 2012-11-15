@@ -108,7 +108,7 @@ function OnGUI () {
 	if (mainMenuEnabled == true){
 		//GUI.DrawTexture(Rect(0, 0, 960, 600), genericGUIBackTex, ScaleMode.ScaleToFit, true, 0);
 	
-		GUI.DrawTexture(Rect (318, 145, 602, 299), titleTexture, ScaleMode.ScaleToFit, true, 0);
+		//GUI.DrawTexture(Rect (318, 145, 602, 299), titleTexture, ScaleMode.ScaleToFit, true, 0);
 
 		GUI.Label(Rect(880, 370, 70, 40), "Volume", volTextStyle);
 		GUI.Box(Rect(905, 410, 20, 120), GUIContent.none, volSliderStyle);

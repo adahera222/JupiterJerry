@@ -82,7 +82,7 @@ function GenerateAsteroids(){
 		numAsteroids = numAsteroidsMax;
 	spawnX = (border.GetComponent(TransformWrap).xStart * (1 + (border.GetComponent(TransformWrap).roundScaleIncrease * (CameraScript.roundNum - 1)))) - 5;
 	spawnZ = (border.GetComponent(TransformWrap).zStart * (1 + (border.GetComponent(TransformWrap).roundScaleIncrease * (CameraScript.roundNum - 1)))) - 5;
-	if (CameraScript.roundNum > 2)
+	if (CameraScript.roundNum > 2 && Application.loadedLevelName != "PracticeLevel")
 		var gigSpawn = false;
 	else
 		gigSpawn = true;
@@ -104,7 +104,7 @@ function GenerateAsteroids(){
 						i--;
 					}
 				}
-				else if (gigSpawn == true && CameraScript.roundNum > 1 && GPKMath.WithinRangef(percentChanceCalc, percentChanceG, percentChanceH)){
+				else if (gigSpawn == true && CameraScript.roundNum > 1 && GPKMath.WithinRangef(percentChanceCalc, percentChanceG, percentChanceH) && Application.loadedLevelName != "PracticeLevel"){
 					if (Physics.CheckSphere(Vector3(asX, 3, asZ), 7.5) == false && (asX < -15 || asX > 15 || asZ < -15 || asZ > 15)) {
 						
 						asteroid = Instantiate(asteroidPrefabH, new Vector3(asX, 3, asZ), Quaternion.Euler(asRotx, asRoty, asRotz));

@@ -74,7 +74,9 @@ var healthGreen:Texture;
 var healthOrange:Texture;
 var healthRed:Texture;
 var healthShield:Texture;
+var healthShieldOff:Texture;
 var fieldCharge:Texture;
+var fieldChargeOff:Texture;
 
 function Start(){
 
@@ -407,16 +409,20 @@ function OnGUI(){
 	GUI.BeginGroup(Rect(40, 538, healthWidth, 31));
 		GUI.DrawTexture(Rect(0, 0, 150, 31), healthCurrent);
 			GUI.EndGroup();
-	
-	GUI.BeginGroup(Rect(213, 538, shieldWidth, 29));
-		GUI.DrawTexture(Rect(0, 0, 151, 29), healthShield);
-			GUI.EndGroup();
+	if (shieldUp.shieldUpChk == true){
+		GUI.BeginGroup(Rect(213, 538, shieldWidth, 29));
+			GUI.DrawTexture(Rect(0, 0, 151, 29), healthShield);
+				GUI.EndGroup();
+	} else
+		GUI.DrawTexture(Rect(213, 538, 151, 29), healthShieldOff);
 	
 	if (AsteroidsPlayer.currentWeapon == "Aura"){
 		GUI.BeginGroup(Rect(681, 541, fieldWidth, 26));
 			GUI.DrawTexture(Rect(0, 0, 76, 26), fieldCharge);
 				GUI.EndGroup();
-	}
+	} else
+		GUI.DrawTexture(Rect(681, 541, 76, 26), fieldChargeOff);
+		
 	
 	GUI.DrawTexture(Rect(Screen.width / 2 - 50, Screen.height / 2 - 36, 100, 72), cameraBoxTex, ScaleMode.ScaleToFit, true, 0);
 }

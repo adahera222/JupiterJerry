@@ -14,11 +14,8 @@ var bombLaunchVolume:float;
 var notEnoughMineralsSound:Transform;
 var playBombReadySound = false;
 
-var bombReady:GUIText;
-
 function Start(){
 
-	bombReady = GameObject.Find("GUIBomb").GetComponent(GUIText);
 
 }
 
