@@ -2,8 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\MenuScripts\Menu.js">
     <Files>
-      <File FileName="Assets\MyScripts\MenuScripts\Menu.js" Line="109" Column="5" />
-      <File FileName="Assets\MyScripts\PlayerStuff\CameraScript.js" Line="454" Column="1" />
+      <File FileName="Assets\MyScripts\WeaponScripts\BombBehaviour.js" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\MenuScripts\Menu.js" Line="139" Column="3" />
+      <File FileName="Assets\MyScripts\PlayerStuff\CameraScript.js" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidBehaviour.js" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\PlayerStuff\AsteroidsPlayer.js" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidSpawn.js" Line="1" Column="1" />

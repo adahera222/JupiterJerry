@@ -114,29 +114,29 @@ function OnGUI () {
 		GUI.Box(Rect(905, 410, 20, 120), GUIContent.none, volSliderStyle);
 		CameraScript.volSliderValue = GUI.VerticalSlider(Rect(910, 420, 20, 100), CameraScript.volSliderValue, 100.0, 0.0);
 
-		if (GUI.Button(Rect(80, 145, buttonWidth, buttonHeight), "Classic Mode")){
-			audio.Play();
-			Application.LoadLevel("MainLevel");
-		}
-		if (GUI.Button(Rect(80, 215, buttonWidth, buttonHeight), "Dark Mode")){
-			audio.Play();
-			Application.LoadLevel("DarkLevel");
-		}
-		if (GUI.Button(Rect(80, 285, buttonWidth, buttonHeight), "Scoreboard")){
-			audio.Play();
-			mainMenuEnabled = false;
-			scoreBoardEnabled = true;
-		}
-		if (GUI.Button(Rect(80, 355, buttonWidth, buttonHeight), "Control Setup")){
-			audio.Play();
-			mainMenuEnabled = false;
-			controlScreenEnabled = true;
-		}
-		if (GUI.Button(Rect(80, 425, buttonWidth, buttonHeight), "How to Play")){
-			audio.Play();
-			mainMenuEnabled = false;
-			howToPlayScreenEnabled = true;
-		}
+//		if (GUI.Button(Rect(80, 145, buttonWidth, buttonHeight), "Classic Mode")){
+//			audio.Play();
+//			Application.LoadLevel("MainLevel");
+//		}
+//		if (GUI.Button(Rect(80, 215, buttonWidth, buttonHeight), "Dark Mode")){
+//			audio.Play();
+//			Application.LoadLevel("DarkLevel");
+//		}
+//		if (GUI.Button(Rect(80, 285, buttonWidth, buttonHeight), "Scoreboard")){
+//			audio.Play();
+//			mainMenuEnabled = false;
+//			scoreBoardEnabled = true;
+//		}
+//		if (GUI.Button(Rect(80, 355, buttonWidth, buttonHeight), "Control Setup")){
+//			audio.Play();
+//			mainMenuEnabled = false;
+//			controlScreenEnabled = true;
+//		}
+//		if (GUI.Button(Rect(80, 425, buttonWidth, buttonHeight), "How to Play")){
+//			audio.Play();
+//			mainMenuEnabled = false;
+//			howToPlayScreenEnabled = true;
+//		}
 	}
 	
 	if (scoreBoardEnabled == true){
