@@ -13,7 +13,7 @@ var fuelMeter:GameObject;
 function Start () {
 	
 	asteroidsPlayer = gameObject.GetComponent(AsteroidsPlayer);
-	Menu.advancedControls = true;
+	Menu.currentControls == "mouse";
 }
 
 function Update () {
@@ -22,7 +22,7 @@ function Update () {
 		fuelResearve = 0;
 	fuelMeter.guiText.text = "Fuel: " + fuelResearve + " seconds";
 
-	if ((Input.GetAxis("Vertical") || (Menu.advancedControls == true && Input.GetAxis("Horizontal"))) && fuelResearve > 0){
+	if ((Input.GetAxis("Vertical") || (Menu.currentControls == "mouse" && Input.GetAxis("Horizontal"))) && fuelResearve > 0){
 	
 		fuelResearve -= Time.deltaTime;
 	

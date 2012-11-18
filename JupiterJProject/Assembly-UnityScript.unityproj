@@ -62,6 +62,7 @@
      <Compile Include="Assets\MyScripts\GUIScripts\DmgTicker.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\FieldCharge.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\GameTime.js" />
+     <Compile Include="Assets\MyScripts\GUIScripts\MenuTextureEnabled.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\RadarLight.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\RecordTime.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\ResourceTicker.js" />

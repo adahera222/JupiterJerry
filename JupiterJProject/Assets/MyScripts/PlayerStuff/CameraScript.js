@@ -267,43 +267,37 @@ function OnGUI(){
 		if (controlScreenEnabled == true){
 		
 		//Draw control screen textures
-			if (Menu.basicControlsR == true)
+			if (Menu.currentControls == "keyRight")
 				GUI.DrawTexture(Rect(0, 0, 960, 600), controlBRTex, ScaleMode.ScaleToFit, true, 0);
-			if (Menu.basicControlsL == true)
+			if (Menu.currentControls == "keyLeft")
 				GUI.DrawTexture(Rect(0, 0, 960, 600), controlBLTex, ScaleMode.ScaleToFit, true, 0);
-			if (Menu.advancedControls == true)
+			if (Menu.currentControls == "mouse")
 				GUI.DrawTexture(Rect(0, 0, 960, 600), controlATex, ScaleMode.ScaleToFit, true, 0);
 	
-			if (Menu.basicControlsR == true){
+			if (Menu.currentControls == "keyRight"){
 				GUI.Label(Rect(720, 306, buttonWidth + 40, buttonHeight), "Right Handed Controls\nActive", controlStyle1);	
 			} else {
 				if (GUI.Button(Rect(740, 306, buttonWidth, buttonHeight), "Classic Controls:\nRight Handed")){
 					audio.Play();
-					Menu.basicControlsR = true;
-					Menu.basicControlsL = false;
-					Menu.advancedControls = false;
+					Menu.currentControls == "keyRight";
 				}
 			}
 		
-			if (Menu.basicControlsL == true){
+			if (Menu.currentControls == "keyLeft"){
 				GUI.Label(Rect(720, 376, buttonWidth + 40, buttonHeight), "Left Handed Controls\nActive", controlStyle1);	
 			} else {
 				if (GUI.Button(Rect(740, 376, buttonWidth, buttonHeight), "Classic Controls:\nLeft Handed")){
 					audio.Play();
-					Menu.basicControlsR = false;
-					Menu.basicControlsL = true;
-					Menu.advancedControls = false;
+					Menu.currentControls == "keyLeft";
 				}
 			}
 			
-			if (Menu.advancedControls == true){
+			if (Menu.currentControls == "mouse"){
 				GUI.Label(Rect(720, 446, buttonWidth + 40, buttonHeight), "Mouse Controls\nActive", controlStyle1);	
 			} else {
 				if (GUI.Button(Rect(740, 446, buttonWidth, buttonHeight), "Mouse Controls")){
 					audio.Play();
-					Menu.basicControlsR = false;
-					Menu.basicControlsL = false;
-					Menu.advancedControls = true;
+					Menu.currentControls == "mouse";
 				}
 			}
 		

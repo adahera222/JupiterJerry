@@ -133,7 +133,7 @@ function Update () {
 //		pickupMessage.GetComponent(PickupMessageScript).moveInterval *= -1;
 //	}
 	if (start == true){
-		if (Menu.basicControlsL == true || Menu.basicControlsR == true){
+		if (Menu.currentControls == "keyLeft" || Menu.currentControls == "keyRight"){
 			if (Input.GetAxis("Horizontal")){
 				var input = Input.GetAxis("Horizontal");
 			} else if(Input.GetAxis("JoyHorizontal")){
@@ -141,7 +141,7 @@ function Update () {
 			}
 			transform.Rotate(0, input * rotateSpeed * rotStop * Time.deltaTime, 0);
 		}
-		if (Menu.advancedControls == true){
+		if (Menu.currentControls == "mouse"){
 			transform.LookAt(rotFollowObj);
 			
 			if (Input.GetAxis("Horizontal") != 0) {
