@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\MenuScripts\Menu.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\PlayerStuff\CameraScript.js">
     <Files>
-      <File FileName="Assets\MyScripts\MenuScripts\Menu.js" Line="177" Column="26" />
+      <File FileName="Assets\MyScripts\MenuScripts\Menu.js" Line="232" Column="72" />
+      <File FileName="Assets\MyScripts\PlayerStuff\CameraScript.js" Line="261" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

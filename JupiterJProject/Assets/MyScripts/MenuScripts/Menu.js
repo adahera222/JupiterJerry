@@ -19,15 +19,15 @@ var controlButtonStyle:GUIStyle;
 var highScoreButtonStyle:GUIStyle;
 var creditsButtonStyle:GUIStyle;
 
+var backButtonStyle:GUIStyle;
+var moreCreditsButtonStyle:GUIStyle;
+var showMoreCredits = false;
+var moreCreditsTexture:Texture;
+
 static var currentControls = "mouse";
 
 var currentScreen = "main";
 var scoreRankNumbers = " 1.\n 2.\n 3.\n 4.\n 5.\n 6.\n 7.\n 8.\n 9.\n10.";
-
-var controlLabelWidth:float;
-var controlLabelHeight:float;
-var controlButtonWidth:float;
-var controlButtonHeight:float;
 
 static var aScoresN = PlayerPrefsX.GetIntArray ("ScoreBoardN");
 static var aScoresI = PlayerPrefsX.GetStringArray ("ScoreBoardI");
@@ -35,10 +35,35 @@ static var aScoresI = PlayerPrefsX.GetStringArray ("ScoreBoardI");
 static var aDScoresN = PlayerPrefsX.GetIntArray ("DScoreBoardN");
 static var aDScoresI = PlayerPrefsX.GetStringArray ("DScoreBoardI");
 
-var controlBRTex:Texture;
-var controlBLTex:Texture;
-var controlATex:Texture;
-var howToPlayTex:Texture;
+var controlRightTex:Texture;
+var controlLeftTex:Texture;
+var controlMouseTex:Texture;
+var controlRightButton:GUIStyle;
+var controlLeftButton:GUIStyle;
+var controlMouseButton:GUIStyle;
+
+var startNormalButton:GUIStyle;
+var startPracticeButton:GUIStyle;
+var startDarkButton:GUIStyle;
+var startLeftButton:GUIStyle;
+var startRightButton:GUIStyle;
+var startBeginButton:GUIStyle;
+var gameModeText:GUIStyle;
+
+	var startTexture:Texture;
+	var currentStartTexture = "comic";
+
+	var startComicCurrentFrame = 1;
+	var startComic1:Texture;
+	var startComic2:Texture;
+	var startComic3:Texture;
+	var startComic4:Texture;
+	var startComic5:Texture;
+	
+	var startNormalTex:Texture;
+	var startPracticeTex:Texture;
+	var startDarkTex:Texture;
+
 var genericGUIBackTex:Texture;
 var cameraBoxTex:Texture;
 
@@ -82,15 +107,15 @@ function Update(){
 
 function OnGUI () {
 	scoreN1Label = aScoresI[0] +
-			" - \n" + aScoresI[1] +
-			" - \n" + aScoresI[2] +
-			" - \n" + aScoresI[3] +
-			" - \n" + aScoresI[4] +
-			" - \n" + aScoresI[5] +
-			" - \n" + aScoresI[6] +
-			" - \n" + aScoresI[7] +
-			" - \n" + aScoresI[8] +
-			" - \n" + aScoresI[9] + " - ";
+			"  -\n" + aScoresI[1] +
+			"  -\n" + aScoresI[2] +
+			"  -\n" + aScoresI[3] +
+			"  -\n" + aScoresI[4] +
+			"  -\n" + aScoresI[5] +
+			"  -\n" + aScoresI[6] +
+			"  -\n" + aScoresI[7] +
+			"  -\n" + aScoresI[8] +
+			"  -\n" + aScoresI[9] + "  -";
 	
 	scoreN2Label = aScoresN[0] +
 			"\n" + aScoresN[1] + 
@@ -104,15 +129,15 @@ function OnGUI () {
 			"\n" + aScoresN[9];
 	
 	scoreD1Label =      aDScoresI[0] +
-				 " - \n" + aDScoresI[1] +
-				 " - \n" + aDScoresI[2] +
-				 " - \n" + aDScoresI[3] +
-				 " - \n" + aDScoresI[4] +
-				 " - \n" + aDScoresI[5] +
-				 " - \n" + aDScoresI[6] +
-				 " - \n" + aDScoresI[7] +
-				 " - \n" + aDScoresI[8] +
-				 " - \n" + aDScoresI[9] + " - ";
+				 "  -\n" + aDScoresI[1] +
+				 "  - \n" + aDScoresI[2] +
+				 "  - \n" + aDScoresI[3] +
+				 "  - \n" + aDScoresI[4] +
+				 "  - \n" + aDScoresI[5] +
+				 "  - \n" + aDScoresI[6] +
+				 "  - \n" + aDScoresI[7] +
+				 "  - \n" + aDScoresI[8] +
+				 "  - \n" + aDScoresI[9] + "  - ";
 	
 	scoreD2Label =      aDScoresN[0] + 
 				 "\n" + aDScoresN[1] + 
@@ -132,17 +157,11 @@ function OnGUI () {
 		//GUI.Box(Rect(705, 410, 20, 120), GUIContent.none, volSliderStyle);
 		//CameraScript.volSliderValue = GUI.VerticalSlider(Rect(750, 420, 20, 100), CameraScript.volSliderValue, 100.0, 0.0);
 
-		//if (GUI.Button(Rect(80, 145, buttonWidth, buttonHeight), "Classic Mode")){
-		//	audio.Play();
-		//	Application.LoadLevel("MainLevel");
-		//}
-		//if (GUI.Button(Rect(80, 215, buttonWidth, buttonHeight), "Dark Mode")){
-		//	audio.Play();
-		//	Application.LoadLevel("DarkLevel");
-		//}
 		if (GUI.Button(Rect(456, 349, buttonWidth, buttonHeight), "", startButtonStyle)){
 			audio.Play();
-			currentScreen = "start";		
+			currentScreen = "start";
+			currentStartTexture = "comic";
+			startComicCurrentFrame = 1;		
 		}
 		if (GUI.Button(Rect(609, 349, buttonWidth, buttonHeight), "", controlButtonStyle)){
 			audio.Play();
@@ -157,24 +176,90 @@ function OnGUI () {
 			currentScreen = "credits";
 		}
 	}
+	if (currentScreen == "start"){
+		
+		if (currentStartTexture == "comic"){			
+			
+			if (startComicCurrentFrame == 1)
+				GUI.DrawTexture(Rect(274, 91, 478, 468), startComic1, ScaleMode.ScaleToFit, true, 0);
+			if (startComicCurrentFrame == 2)
+				GUI.DrawTexture(Rect(274, 91, 478, 468), startComic2, ScaleMode.ScaleToFit, true, 0);
+			if (startComicCurrentFrame == 3)
+				GUI.DrawTexture(Rect(274, 91, 478, 468), startComic3, ScaleMode.ScaleToFit, true, 0);
+			if (startComicCurrentFrame == 4)
+				GUI.DrawTexture(Rect(274, 91, 478, 468), startComic4, ScaleMode.ScaleToFit, true, 0);
+			if (startComicCurrentFrame == 5)
+				GUI.DrawTexture(Rect(274, 91, 478, 468), startComic5, ScaleMode.ScaleToFit, true, 0);
+			
+			if (startComicCurrentFrame > 1){
+				if (GUI.Button(Rect(260, 310, 49, 49), "", startLeftButton)){
+					audio.Play();
+					startComicCurrentFrame--;
+				}
+			}
+			if  (startComicCurrentFrame < 5){
+				if (GUI.Button(Rect(717, 310, 49, 49), "", startRightButton)){
+					audio.Play();
+					startComicCurrentFrame++;
+				}
+			}
+		}
+		
+		if (currentStartTexture == "normal"){
+			GUI.DrawTexture(Rect(274, 91, 478, 468), startNormalTex, ScaleMode.ScaleToFit, true, 0);
+			if (GUI.Button(Rect(600, 480, buttonWidth, buttonHeight), "", startBeginButton)){
+				audio.Play();
+				Application.LoadLevel("MainLevel");
+			}
+		}
+		if (currentStartTexture == "practice"){
+			GUI.DrawTexture(Rect(274, 91, 478, 468), startPracticeTex, ScaleMode.ScaleToFit, true, 0);
+			if (GUI.Button(Rect(600, 480, buttonWidth, buttonHeight), "", startBeginButton)){
+				audio.Play();
+				Application.LoadLevel("PracticeLevel");
+			}
+		}
+		if (currentStartTexture == "dark"){
+			GUI.DrawTexture(Rect(274, 91, 478, 468), startDarkTex, ScaleMode.ScaleToFit, true, 0);
+			if (GUI.Button(Rect(600, 480, buttonWidth, buttonHeight), "", startBeginButton)){
+				audio.Play();
+				Application.LoadLevel("DarkLevel");
+			}
+		}
+			
+			
+		
+		GUI.Label(Rect(60, 30, 140, 100), "Select\nGame Mode", gameModeText);
+		
+		if (GUI.Button(Rect(60, 75, buttonWidth, buttonHeight), "", startNormalButton)){
+			audio.Play();
+			currentStartTexture = "normal";
+		}
+		if (GUI.Button(Rect(60, 175, buttonWidth, buttonHeight), "", startPracticeButton)){
+			audio.Play();
+			currentStartTexture = "practice";
+		}
+		if (GUI.Button(Rect(60, 275, buttonWidth, buttonHeight), "", startDarkButton)){
+			audio.Play();
+			currentStartTexture = "dark";
+		}
+		if (GUI.Button(Rect(70, 460, buttonWidth, buttonHeight), "", backButtonStyle)){
+			audio.Play();
+			currentScreen = "main";
+		}
 	
+	}
 	if (currentScreen == "scores"){
 	
-		GUI.Label(Rect (Screen.width*0.15 - 60, Screen.height / 5 - 65, 300, 50), "Asteroids Destroyed", scoreHeadStyle);
-		GUI.Label(Rect (Screen.width*0.25 - 90, Screen.height / 5 - 30, 30, 500), scoreRankNumbers, scoreStyle);
-		GUI.Label(Rect (Screen.width*0.25 - 65, Screen.height / 5 - 30, 80, 500), scoreN1Label, scoreStyle);
-		GUI.Label(Rect (Screen.width*0.25 + 20, Screen.height / 5 - 30, 50, 500), scoreN2Label, scoreNStyle);
+		GUI.Label(Rect (Screen.width*0.25 - 100, Screen.height / 5 - 20, 30, 500), scoreRankNumbers, scoreStyle);
+		GUI.Label(Rect (Screen.width*0.25 - 65, Screen.height / 5 - 20, 80, 500), scoreN1Label, scoreStyle);
+		GUI.Label(Rect (Screen.width*0.25 + 30, Screen.height / 5 - 20, 50, 500), scoreN2Label, scoreNStyle);
 		
-		GUI.Label(Rect (Screen.width / 2 - 100, Screen.height * 0.25 - 50, 200, 100), "Classic\nMode", scoreHeadStyle);
+		GUI.Label(Rect (Screen.width*0.75 - 95, Screen.height / 9 - 35 + 250, 30, 500), scoreRankNumbers, scoreStyle);
+		GUI.Label(Rect (Screen.width*0.75 - 55, Screen.height / 9 - 35 + 250, 80, 500), scoreD1Label, scoreStyle);
+		GUI.Label(Rect (Screen.width*0.75 + 40, Screen.height / 9 - 35 + 250, 50, 500), scoreD2Label, scoreNStyle);
 		
-		GUI.Label(Rect (Screen.width*0.65 - 50, Screen.height / 9 - 75 + 250, 300, 50), "Asteroids Destroyed", scoreHeadStyle);
-		GUI.Label(Rect (Screen.width*0.75 - 80, Screen.height / 9 - 40 + 250, 30, 500), scoreRankNumbers, scoreStyle);
-		GUI.Label(Rect (Screen.width*0.75 - 55, Screen.height / 9 - 40 + 250, 80, 500), scoreD1Label, scoreStyle);
-		GUI.Label(Rect (Screen.width*0.75 + 30, Screen.height / 9 - 40 + 250, 50, 500), scoreD2Label, scoreNStyle);
-		
-		GUI.Label(Rect (Screen.width / 2 - 100, Screen.height * 0.75 - 50, 200, 100), "Dark\nMode", scoreHeadStyle);
-		
-		if (GUI.Button(Rect(100, 450, buttonWidth, buttonHeight), "Back")){
+		if (GUI.Button(Rect(100, 450, buttonWidth, buttonHeight), "", backButtonStyle)){
 			audio.Play();
 			currentScreen = "main";
 		}
@@ -183,57 +268,49 @@ function OnGUI () {
 	
 	//Draw control screen textures
 		if (currentControls == "keyRight")
-			GUI.DrawTexture(Rect(0, 0, 960, 600), controlBRTex, ScaleMode.ScaleToFit, true, 0);
+			GUI.DrawTexture(Rect(84, 62, 425, 462), controlRightTex, ScaleMode.ScaleToFit, true, 0);
 		if (currentControls == "keyLeft")
-			GUI.DrawTexture(Rect(0, 0, 960, 600), controlBLTex, ScaleMode.ScaleToFit, true, 0);
+			GUI.DrawTexture(Rect(84, 62, 425, 462), controlLeftTex, ScaleMode.ScaleToFit, true, 0);
 		if (currentControls == "mouse")
-			GUI.DrawTexture(Rect(0, 0, 960, 600), controlATex, ScaleMode.ScaleToFit, true, 0);
+			GUI.DrawTexture(Rect(84, 62, 425, 462), controlMouseTex, ScaleMode.ScaleToFit, true, 0);
 			
 	//Control selection buttons	
-		if (currentControls == "keyRight"){
-			GUI.Label(Rect(720, 306, buttonWidth + 40, buttonHeight), "Right Handed Controls\nActive", controlStyle);	
-		} else {
-			if (GUI.Button(Rect(740, 306, buttonWidth, buttonHeight), "Classic Controls:\nRight Handed")){
-				audio.Play();
-				currentControls == "keyRight";
-			}
+		if (GUI.Button(Rect(580, 115, buttonWidth, buttonHeight), "", controlMouseButton)){
+			audio.Play();
+			currentControls = "mouse";
 		}
 		
-		if (currentControls == "keyLeft"){
-			GUI.Label(Rect(720, 376, buttonWidth + 40, buttonHeight), "Left Handed Controls\nActive", controlStyle);	
-		} else {
-			if (GUI.Button(Rect(740, 376, buttonWidth, buttonHeight), "Classic Controls:\nLeft Handed")){
-				audio.Play();
-				currentControls = "keyLeft";
-			}
+		if (GUI.Button(Rect(580, 215, buttonWidth, buttonHeight), "", controlRightButton)){
+			audio.Play();
+			currentControls = "keyRight";
 		}
 		
-		if (currentControls == "mouse"){
-			GUI.Label(Rect(720, 446, buttonWidth + 40, buttonHeight), "Mouse Controls\nActive", controlStyle);	
-		} else {
-			if (GUI.Button(Rect(740, 446, buttonWidth, buttonHeight), "Mouse Controls")){
-				audio.Play();
-				currentControls = "mouse";
-			}
+		if (GUI.Button(Rect(580, 315, buttonWidth, buttonHeight), "", controlLeftButton)){
+			audio.Play();
+			currentControls = "keyLeft";
 		}
 		
 		
 		
-		if (GUI.Button(Rect(740, 516, buttonWidth, buttonHeight), "Back")){
+		if (GUI.Button(Rect(600, 425, buttonWidth, buttonHeight), "", backButtonStyle)){
 			audio.Play();
 			currentScreen = "main";
 		}
 		
 	}
 	
-	if (currentScreen == "howToPlay"){
-	
-		GUI.DrawTexture(Rect(0, 0, 960, 600), howToPlayTex, ScaleMode.ScaleToFit, true, 0);
-		
-		if (GUI.Button(Rect(754, 520, buttonWidth, buttonHeight), "Back")){
+	if (currentScreen == "credits"){
+
+		if (GUI.Button(Rect(100, 380, buttonWidth, buttonHeight), "", backButtonStyle)){
 			audio.Play();
 			currentScreen = "main";
 		}
+		if (GUI.Button(Rect(600, 50, buttonWidth, buttonHeight), "", moreCreditsButtonStyle)){
+			audio.Play();
+			showMoreCredits = !showMoreCredits;
+		}
+		if (showMoreCredits == true)
+			GUI.DrawTexture(Rect(288, 112, 387, 230), moreCreditsTexture, ScaleMode.ScaleToFit, true, 0);
 	}
 	GUI.DrawTexture(Rect(Screen.width / 2 - 50, Screen.height / 2 - 36, 100, 72), cameraBoxTex, ScaleMode.ScaleToFit, true, 0);
 }

@@ -8,10 +8,13 @@ var buttonHeight=50.0;
 static var volSliderValue = AudioListener.volume * 100;
 var volSliderStyle:GUIStyle;
 var volTextStyle:GUIStyle;
-var controlBRTex:Texture;
-var controlBLTex:Texture;
-var controlATex:Texture;
-var controlStyle1:GUIStyle;
+var controlRightTex:Texture;
+var controlLeftTex:Texture;
+var controlMouseTex:Texture;
+var controlRightButton:GUIStyle;
+var controlLeftButton:GUIStyle;
+var controlMouseButton:GUIStyle;
+var backButtonStyle:GUIStyle;
 var cameraBoxTex:Texture;
 
 var restartLoad = "MainLevel";
@@ -27,9 +30,8 @@ var asterPlayer:AsteroidsPlayer;
 var asteroidSpawn:AsteroidSpawn;
 
 var pause = false;
-var pauseMenuEnabled = true;
 static var pauseSound = false;
-var controlScreenEnabled = false;
+var currentScreen = "main";
 var orthoDefault:float;
 var orthoZoomOut:float;
 var orthoZoomSpd:float;
@@ -235,7 +237,7 @@ function OnGUI(){
 	
 	if (pause == true){
 		
-		if (pauseMenuEnabled == true){
+		if (currentScreen == "main"){
 			GUI.Label(Rect(Screen.width / 2 - 350, Screen.height * 0.2 - 25, 700, 200), "Game Paused", restartStyle);
 			
 			GUI.Label(Rect(830, 220, 70, 40), "Volume", volTextStyle);
@@ -247,68 +249,57 @@ function OnGUI(){
 				pause = false;
 				EnableDisablePlayer();
 			}
-			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.68 + (buttonHeight * 0.75), buttonWidth, buttonHeight * 0.75), "Restart")){
+			if (GUI.Button(Rect(Screen.width * 0.75 - buttonWidth / 2, Screen.height * 0.4 + (buttonHeight * 0.75), buttonWidth, buttonHeight * 0.75), "Restart")){
 				audio.Play();
 				pause = false;
 				Application.LoadLevel(restartLoad);
 			}
-			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.68 + 10 + 2 * (buttonHeight * 0.75), buttonWidth, buttonHeight * 0.75), "Control Setup")){
+			if (GUI.Button(Rect(Screen.width * 0.75 - buttonWidth / 2, Screen.height * 0.4 + 10 + 2 * (buttonHeight * 0.75), buttonWidth, buttonHeight * 0.75), "Control Setup")){
 				audio.Play();
-				controlScreenEnabled = true;
-				pauseMenuEnabled = false;
+				currentScreen = "controls";
 			}
-			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.68 + 20 + 3 * (buttonHeight * 0.75), buttonWidth, buttonHeight * 0.75), "Return to Menu")){
+			if (GUI.Button(Rect(Screen.width * 0.75 - buttonWidth / 2, Screen.height * 0.4 + 20 + 3 * (buttonHeight * 0.75), buttonWidth, buttonHeight * 0.75), "Return to Menu")){
 				audio.Play();
 				pause = false;
 				Application.LoadLevel("MainMenu");
 			}
 		}
 			
-		if (controlScreenEnabled == true){
-		
-		//Draw control screen textures
-			if (Menu.currentControls == "keyRight")
-				GUI.DrawTexture(Rect(0, 0, 960, 600), controlBRTex, ScaleMode.ScaleToFit, true, 0);
-			if (Menu.currentControls == "keyLeft")
-				GUI.DrawTexture(Rect(0, 0, 960, 600), controlBLTex, ScaleMode.ScaleToFit, true, 0);
-			if (Menu.currentControls == "mouse")
-				GUI.DrawTexture(Rect(0, 0, 960, 600), controlATex, ScaleMode.ScaleToFit, true, 0);
+		if (currentScreen == "controls"){
 	
-			if (Menu.currentControls == "keyRight"){
-				GUI.Label(Rect(720, 306, buttonWidth + 40, buttonHeight), "Right Handed Controls\nActive", controlStyle1);	
-			} else {
-				if (GUI.Button(Rect(740, 306, buttonWidth, buttonHeight), "Classic Controls:\nRight Handed")){
-					audio.Play();
-					Menu.currentControls == "keyRight";
-				}
+	//Draw control screen textures
+			if (Menu.currentControls == "keyRight")
+				GUI.DrawTexture(Rect(84, 62, 425, 462), controlRightTex, ScaleMode.ScaleToFit, true, 0);
+			if (Menu.currentControls == "keyLeft")
+				GUI.DrawTexture(Rect(84, 62, 425, 462), controlLeftTex, ScaleMode.ScaleToFit, true, 0);
+			if (Menu.currentControls == "mouse")
+				GUI.DrawTexture(Rect(84, 62, 425, 462), controlMouseTex, ScaleMode.ScaleToFit, true, 0);
+			
+	//Control selection buttons	
+			if (GUI.Button(Rect(580, 115, buttonWidth, buttonHeight), "", controlMouseButton)){
+				audio.Play();
+				Menu.currentControls = "mouse";
 			}
 		
-			if (Menu.currentControls == "keyLeft"){
-				GUI.Label(Rect(720, 376, buttonWidth + 40, buttonHeight), "Left Handed Controls\nActive", controlStyle1);	
-			} else {
-				if (GUI.Button(Rect(740, 376, buttonWidth, buttonHeight), "Classic Controls:\nLeft Handed")){
-					audio.Play();
-					Menu.currentControls == "keyLeft";
-				}
+			if (GUI.Button(Rect(580, 215, buttonWidth, buttonHeight), "", controlRightButton)){
+				audio.Play();
+				Menu.currentControls = "keyRight";
 			}
 			
-			if (Menu.currentControls == "mouse"){
-				GUI.Label(Rect(720, 446, buttonWidth + 40, buttonHeight), "Mouse Controls\nActive", controlStyle1);	
-			} else {
-				if (GUI.Button(Rect(740, 446, buttonWidth, buttonHeight), "Mouse Controls")){
-					audio.Play();
-					Menu.currentControls == "mouse";
-				}
-			}
-		
-		
-		
-			if (GUI.Button(Rect(740, 516, buttonWidth, buttonHeight), "Back")){
+			if (GUI.Button(Rect(580, 315, buttonWidth, buttonHeight), "", controlLeftButton)){
 				audio.Play();
-				pauseMenuEnabled = true;
-				controlScreenEnabled = false;
+				Menu.currentControls = "keyLeft";
 			}
+		
+		
+			
+			if (GUI.Button(Rect(600, 425, buttonWidth, buttonHeight), "", backButtonStyle)){
+				audio.Play();
+				currentScreen = "main";
+			}
+		
 		}
+	
 		Time.timeScale = 0;
 	} else {
 		Time.timeScale = 1;
@@ -400,7 +391,7 @@ function OnGUI(){
 	else
 		healthCurrent = healthRed;
 	
-	GUI.BeginGroup(Rect(40, 538, healthWidth, 31));
+	GUI.BeginGroup(Rect(40, 536, healthWidth, 31));
 		GUI.DrawTexture(Rect(0, 0, 150, 31), healthCurrent);
 			GUI.EndGroup();
 	if (shieldUp.shieldUpChk == true){
