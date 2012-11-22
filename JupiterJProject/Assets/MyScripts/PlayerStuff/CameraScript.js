@@ -14,6 +14,23 @@ var controlMouseTex:Texture;
 var controlRightButton:GUIStyle;
 var controlLeftButton:GUIStyle;
 var controlMouseButton:GUIStyle;
+
+var gameInfoButton:GUIStyle;
+var startNormalTex:Texture;
+var startPracticeTex:Texture;
+var startDarkTex:Texture;
+var itemInfoWeaponTex:Texture;
+var itemInfoPowerTex:Texture;
+var itemInfoScreen = "weapon";
+var itemLeftButton:GUIStyle;
+var itemRightButton:GUIStyle;
+
+var restartButton:GUIStyle;
+var returnToGameButton:GUIStyle;
+var returnToMenuButton:GUIStyle;
+var controlButton:GUIStyle;
+var itemInfoButton:GUIStyle;
+
 var backButtonStyle:GUIStyle;
 var cameraBoxTex:Texture;
 
@@ -32,6 +49,7 @@ var asteroidSpawn:AsteroidSpawn;
 var pause = false;
 static var pauseSound = false;
 var currentScreen = "main";
+var currentInfoScreen = "main";
 var orthoDefault:float;
 var orthoZoomOut:float;
 var orthoZoomSpd:float;
@@ -244,62 +262,105 @@ function OnGUI(){
 			GUI.Box(Rect(855, 260, 20, 120), GUIContent.none, volSliderStyle);
 			volSliderValue = GUI.VerticalSlider(Rect(860, 270, 20, 100), volSliderValue, 100.0, 0.0);
 		
-			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.68 - 10 - (buttonHeight * 0.75), buttonWidth, buttonHeight * 0.75), "Return to Game")){
+			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.5 + 40, buttonWidth, buttonHeight), "", returnToGameButton)){
 				audio.Play();
 				pause = false;
 				EnableDisablePlayer();
 			}
-			if (GUI.Button(Rect(Screen.width * 0.75 - buttonWidth / 2, Screen.height * 0.4 + (buttonHeight * 0.75), buttonWidth, buttonHeight * 0.75), "Restart")){
+			if (GUI.Button(Rect(Screen.width * 0.25 - buttonWidth / 2, Screen.height * 0.5 + 130, buttonWidth, buttonHeight), "", restartButton)){
 				audio.Play();
 				pause = false;
 				Application.LoadLevel(restartLoad);
 			}
-			if (GUI.Button(Rect(Screen.width * 0.75 - buttonWidth / 2, Screen.height * 0.4 + 10 + 2 * (buttonHeight * 0.75), buttonWidth, buttonHeight * 0.75), "Control Setup")){
+			if (GUI.Button(Rect(Screen.width * 0.5 - buttonWidth / 2, Screen.height * 0.5 + 130, buttonWidth, buttonHeight), "", gameInfoButton)){
 				audio.Play();
-				currentScreen = "controls";
+				currentScreen = "gameInfo";
 			}
-			if (GUI.Button(Rect(Screen.width * 0.75 - buttonWidth / 2, Screen.height * 0.4 + 20 + 3 * (buttonHeight * 0.75), buttonWidth, buttonHeight * 0.75), "Return to Menu")){
+			if (GUI.Button(Rect(Screen.width * 0.75 - buttonWidth / 2, Screen.height * 0.5 + 130, buttonWidth, buttonHeight), "", returnToMenuButton)){
 				audio.Play();
 				pause = false;
 				Application.LoadLevel("MainMenu");
 			}
 		}
+		
+		if (currentScreen == "gameInfo"){
 			
-		if (currentScreen == "controls"){
+			if (currentInfoScreen == "main"){
+				if (Application.loadedLevelName == "MainLevel")
+					GUI.DrawTexture(Rect(274, 71, 478, 468), startNormalTex, ScaleMode.ScaleToFit, true, 0);
+				if (Application.loadedLevelName == "PracticeLevel")
+					GUI.DrawTexture(Rect(274, 71, 478, 468), startPracticeTex, ScaleMode.ScaleToFit, true, 0);
+				if (Application.loadedLevelName == "DarkLevel")
+					GUI.DrawTexture(Rect(274, 71, 478, 468), startDarkTex, ScaleMode.ScaleToFit, true, 0);
+				
+				if (GUI.Button(Rect(60, 75, buttonWidth, buttonHeight), "", controlButton)){
+					audio.Play();
+					currentInfoScreen = "controls";
+				}
+				if (GUI.Button(Rect(60, 175, buttonWidth, buttonHeight), "", itemInfoButton)){
+					audio.Play();
+					currentInfoScreen = "itemInfo";
+				}
+				if (GUI.Button(Rect(70, 390, buttonWidth, buttonHeight), "", backButtonStyle)){
+					audio.Play();
+					currentScreen = "main";
+				}
+			}
+			if (currentInfoScreen == "controls"){
 	
-	//Draw control screen textures
-			if (Menu.currentControls == "keyRight")
-				GUI.DrawTexture(Rect(84, 62, 425, 462), controlRightTex, ScaleMode.ScaleToFit, true, 0);
-			if (Menu.currentControls == "keyLeft")
-				GUI.DrawTexture(Rect(84, 62, 425, 462), controlLeftTex, ScaleMode.ScaleToFit, true, 0);
-			if (Menu.currentControls == "mouse")
-				GUI.DrawTexture(Rect(84, 62, 425, 462), controlMouseTex, ScaleMode.ScaleToFit, true, 0);
+		//Draw control screen textures
+				if (Menu.currentControls == "keyRight")
+					GUI.DrawTexture(Rect(84, 62, 425, 462), controlRightTex, ScaleMode.ScaleToFit, true, 0);
+				if (Menu.currentControls == "keyLeft")
+					GUI.DrawTexture(Rect(84, 62, 425, 462), controlLeftTex, ScaleMode.ScaleToFit, true, 0);
+				if (Menu.currentControls == "mouse")
+					GUI.DrawTexture(Rect(84, 62, 425, 462), controlMouseTex, ScaleMode.ScaleToFit, true, 0);
 			
-	//Control selection buttons	
-			if (GUI.Button(Rect(580, 115, buttonWidth, buttonHeight), "", controlMouseButton)){
-				audio.Play();
-				Menu.currentControls = "mouse";
-			}
-		
-			if (GUI.Button(Rect(580, 215, buttonWidth, buttonHeight), "", controlRightButton)){
-				audio.Play();
-				Menu.currentControls = "keyRight";
-			}
+		//Control selection buttons	
+				if (GUI.Button(Rect(580, 115, buttonWidth, buttonHeight), "", controlMouseButton)){
+					audio.Play();
+					Menu.currentControls = "mouse";
+				}
 			
-			if (GUI.Button(Rect(580, 315, buttonWidth, buttonHeight), "", controlLeftButton)){
-				audio.Play();
-				Menu.currentControls = "keyLeft";
-			}
+				if (GUI.Button(Rect(580, 215, buttonWidth, buttonHeight), "", controlRightButton)){
+					audio.Play();
+					Menu.currentControls = "keyRight";
+				}
+				
+				if (GUI.Button(Rect(580, 315, buttonWidth, buttonHeight), "", controlLeftButton)){
+					audio.Play();
+					Menu.currentControls = "keyLeft";
+				}
 		
 		
 			
-			if (GUI.Button(Rect(600, 425, buttonWidth, buttonHeight), "", backButtonStyle)){
-				audio.Play();
-				currentScreen = "main";
-			}
+				if (GUI.Button(Rect(600, 425, buttonWidth, buttonHeight), "", backButtonStyle)){
+					audio.Play();
+					currentInfoScreen = "main";
+				}
 		
+			}
+			if (currentInfoScreen == "itemInfo"){
+				if (itemInfoScreen == "weapon"){
+					GUI.DrawTexture(Rect(0,0,800,600), itemInfoWeaponTex, ScaleMode.ScaleToFit, true, 0);
+					if (GUI.Button(Rect(516, 43, 49, 49), "", itemRightButton)){
+						audio.Play();
+						itemInfoScreen = "powerups";
+					}
+				}
+				if (itemInfoScreen == "powerups"){
+					GUI.DrawTexture(Rect(0,0,800,600), itemInfoPowerTex, ScaleMode.ScaleToFit, true, 0);
+					if (GUI.Button(Rect(248, 43, 49, 49), "", itemLeftButton)){
+						audio.Play();
+						itemInfoScreen = "weapon";
+					}
+				}
+				if (GUI.Button(Rect(330, 475, buttonWidth, buttonHeight), "", backButtonStyle)){
+					audio.Play();
+					currentInfoScreen = "main";
+				}
+			}
 		}
-	
 		Time.timeScale = 0;
 	} else {
 		Time.timeScale = 1;
@@ -391,23 +452,24 @@ function OnGUI(){
 	else
 		healthCurrent = healthRed;
 	
-	GUI.BeginGroup(Rect(40, 536, healthWidth, 31));
-		GUI.DrawTexture(Rect(0, 0, 150, 31), healthCurrent);
-			GUI.EndGroup();
-	if (shieldUp.shieldUpChk == true){
-		GUI.BeginGroup(Rect(213, 538, shieldWidth, 29));
-			GUI.DrawTexture(Rect(0, 0, 151, 29), healthShield);
+	if (!(pause == true && currentScreen == "gameInfo" && currentInfoScreen == "itemInfo")){
+		GUI.BeginGroup(Rect(40, 536, healthWidth, 31));
+			GUI.DrawTexture(Rect(0, 0, 150, 31), healthCurrent);
 				GUI.EndGroup();
-	} else
-		GUI.DrawTexture(Rect(213, 538, 151, 29), healthShieldOff);
-	
-	if (AsteroidsPlayer.currentWeapon == "Aura"){
-		GUI.BeginGroup(Rect(681, 541, fieldWidth, 26));
-			GUI.DrawTexture(Rect(0, 0, 76, 26), fieldCharge);
-				GUI.EndGroup();
-	} else
-		GUI.DrawTexture(Rect(681, 541, 76, 26), fieldChargeOff);
+		if (shieldUp.shieldUpChk == true){
+			GUI.BeginGroup(Rect(213, 538, shieldWidth, 29));
+				GUI.DrawTexture(Rect(0, 0, 151, 29), healthShield);
+					GUI.EndGroup();
+		} else
+			GUI.DrawTexture(Rect(213, 538, 151, 29), healthShieldOff);
 		
+		if (AsteroidsPlayer.currentWeapon == "Aura"){
+			GUI.BeginGroup(Rect(681, 541, fieldWidth, 26));
+				GUI.DrawTexture(Rect(0, 0, 76, 26), fieldCharge);
+					GUI.EndGroup();
+		} else
+			GUI.DrawTexture(Rect(681, 541, 76, 26), fieldChargeOff);
+	}	
 	
 	GUI.DrawTexture(Rect(Screen.width / 2 - 50, Screen.height / 2 - 36, 100, 72), cameraBoxTex, ScaleMode.ScaleToFit, true, 0);
 }

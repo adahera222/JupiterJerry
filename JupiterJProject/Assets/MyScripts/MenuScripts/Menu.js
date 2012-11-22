@@ -192,13 +192,13 @@ function OnGUI () {
 				GUI.DrawTexture(Rect(274, 91, 478, 468), startComic5, ScaleMode.ScaleToFit, true, 0);
 			
 			if (startComicCurrentFrame > 1){
-				if (GUI.Button(Rect(260, 310, 49, 49), "", startLeftButton)){
+				if (GUI.Button(Rect(287, 310, 49, 49), "", startLeftButton)){
 					audio.Play();
 					startComicCurrentFrame--;
 				}
 			}
 			if  (startComicCurrentFrame < 5){
-				if (GUI.Button(Rect(717, 310, 49, 49), "", startRightButton)){
+				if (GUI.Button(Rect(690, 310, 49, 49), "", startRightButton)){
 					audio.Play();
 					startComicCurrentFrame++;
 				}
