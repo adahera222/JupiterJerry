@@ -44,6 +44,7 @@ function OnTriggerEnter(hostile:Collider){
     		
     		asteroidBehave = hostile.GetComponent(AsteroidBehaviour);
     		asteroidBehave.curHP -= dmg;
+    		asteroidBehave.HPCheck();
     		var heading = hostile.transform.position - transform.position;
     		hostile.rigidbody.AddForce(heading * repell);
     		

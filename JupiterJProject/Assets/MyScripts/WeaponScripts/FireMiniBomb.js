@@ -33,7 +33,7 @@ function Update () {
 		miniBomb.transform.eulerAngles.x = 90;
 		
 		miniBomb.rigidbody.velocity = rigidbody.velocity;
-		miniBomb.rigidbody.angularVelocity = rigidbody.angularVelocity;
+		//miniBomb.rigidbody.angularVelocity = rigidbody.angularVelocity;
 		
 		miniBomb.rigidbody.AddForce(transform.forward * miniBombSpd);
 		

@@ -25,37 +25,16 @@ var bulletSpawnR2:Transform;
 var maxMineral2:float;
 var startMin2:float;
 
-//var weaponUpgrade1:int;
-//var weaponUpgrade2:int;
-
-//var weaponLev3Angle:float;
-
-//var weaponUpgradeRezOffset:float;
-
-//var rechargeDelay1:float;
-//var rechargeDelay2:float;
-//var upgradeThreshold1:float;
-//var upgradeThreshold2:float;
-//var upgradeThreshold3:float;
-
-//var guiRateOfFire:GUIText;
-
 function Start(){
 
 	asterPlayer = gameObject.GetComponent(AsteroidsPlayer);
 	Resource2Script.resource2Num = startMin2;
-	//rechargeDelay = rechargeDelayDefault;
-	//guiRateOfFire = GameObject.Find("GUIRateOfFire").GetComponent(GUIText);
 }
 
 
 function Update () {
 
-//	if (Resource2Script.resource2Num >= weaponUpgrade2){
-	
-//		bulletSpawnL.transform.localEulerAngles.y = -weaponLev3Angle;
-//		bulletSpawnR.transform.localEulerAngles.y = weaponLev3Angle;
-//	}
+
 	if (Resource2Script.resource2Num > maxMineral2)
 		Resource2Script.resource2Num = maxMineral2;
 	if (bulletNum > 3)
@@ -70,7 +49,8 @@ function Update () {
 		bullet.transform.eulerAngles.x = 90;
 		
 		bullet.rigidbody.velocity = rigidbody.velocity;
-		bullet.rigidbody.angularVelocity = rigidbody.angularVelocity;
+		//bullet.rigidbody.angularVelocity = rigidbody.angularVelocity;
+		
 		
 		bullet.rigidbody.AddForce(transform.forward * bulletSpd);
 		
@@ -93,9 +73,9 @@ function Update () {
 		bulletR.transform.eulerAngles.x = 90;
 		
 		bulletL.rigidbody.velocity = rigidbody.velocity;
-		bulletL.rigidbody.angularVelocity = rigidbody.angularVelocity;
+		//bulletL.rigidbody.angularVelocity = rigidbody.angularVelocity;
 		bulletR.rigidbody.velocity = rigidbody.velocity;
-		bulletR.rigidbody.angularVelocity = rigidbody.angularVelocity;
+		//bulletR.rigidbody.angularVelocity = rigidbody.angularVelocity;
 		
 		bulletL.rigidbody.AddForce(transform.forward * bulletSpd);
 		bulletR.rigidbody.AddForce(transform.forward * bulletSpd);
@@ -113,7 +93,7 @@ function Update () {
 			bullet.transform.eulerAngles.x = 90;
 		
 			bullet.rigidbody.velocity = rigidbody.velocity;
-			bullet.rigidbody.angularVelocity = rigidbody.angularVelocity;
+			//bullet.rigidbody.angularVelocity = rigidbody.angularVelocity;
 		
 			bullet.rigidbody.AddForce(transform.forward * bulletSpd);
 		}
@@ -123,7 +103,7 @@ function Update () {
 			bulletL.transform.eulerAngles.x = 90;
 		
 			bulletL.rigidbody.velocity = rigidbody.velocity;
-			bulletL.rigidbody.angularVelocity = rigidbody.angularVelocity;
+			//bulletL.rigidbody.angularVelocity = rigidbody.angularVelocity;
 		
 			bulletL.rigidbody.AddForce(bulletSpawnL.transform.forward * bulletSpd);
 		}
@@ -133,7 +113,7 @@ function Update () {
 			bulletR.transform.eulerAngles.x = 90;
 			
 			bulletR.rigidbody.velocity = rigidbody.velocity;
-			bulletR.rigidbody.angularVelocity = rigidbody.angularVelocity;
+			//bulletR.rigidbody.angularVelocity = rigidbody.angularVelocity;
 		
 			bulletR.rigidbody.AddForce(bulletSpawnR.transform.forward * bulletSpd);
 		}
@@ -143,37 +123,6 @@ function Update () {
 }
 
 function FixedUpdate () {
-	
-	//Leveled recharge decrease
-	//if (Resource1Script.resourceNum < upgradeThreshold1){
-	//	rechargeDelay = rechargeDelayDefault;
-	//} else if (Resource1Script.resourceNum >= upgradeThreshold1 && Resource1Script.resourceNum < upgradeThreshold2){
-	//	rechargeDelay = rechargeDelayDefault - (upgradeThreshold1 / delayDivider);
-	//} else if (Resource1Script.resourceNum >= upgradeThreshold2 && Resource1Script.resourceNum < upgradeThreshold3){
-	//	rechargeDelay = rechargeDelayDefault - (upgradeThreshold2 / delayDivider);
-	//} else if (Resource1Script.resourceNum >= upgradeThreshold3){
-	//	rechargeDelay = 0.1;
-	//}
-	
-	//Gradual recharge decrease
-	
-	//if ((rechargeDelayDefault - (Resource1Script.resourceNum / delayDivider)) > minDelay){
-	//	rechargeDelay = rechargeDelayDefault - (Resource1Script.resourceNum / delayDivider);
-	//} else if ((rechargeDelayDefault - (Resource1Script.resourceNum / delayDivider)) < minDelay) {
-	//	rechargeDelay = minDelay;
-	//}
-	
-
-///////////////////    Old Rez offset for Mineral 2 upgrade system   //////////////////////
-
-//	if (Resource2Script.resource2Num < weaponUpgrade1)
-//		weaponUpgradeRezOffset = 0;
-//	if (Resource2Script.resource2Num >= weaponUpgrade1 && Resource2Script.resource2Num < weaponUpgrade2)
-//		weaponUpgradeRezOffset = weaponUpgrade1 - startMin2;
-//	if (Resource2Script.resource2Num >= weaponUpgrade2)
-//		weaponUpgradeRezOffset = weaponUpgrade1 - (startMin2 * 2);
-//	if (Resource2Script.resource2Num > maxMineral2)
-//		Resource2Script.resource2Num = maxMineral2;
 	
 	
 	//Resource 2 dependant recharge decrease
@@ -193,9 +142,5 @@ function FixedUpdate () {
 		canFire = true;
 		ammoRecharge = 0;
 	}
-	
-	//var fireRate = Mathf.Round((1 / rechargeDelay) * 100) / 100;
-	
-	//guiRateOfFire.guiText.text = "Firing Rate: " + fireRate + " shots/sec";
 }
 

@@ -37,7 +37,7 @@ function OnTriggerStay (hostile:Collider) {
     if (hostileTag.Length > 8 && hostileTag.Substring(0,8) == "Asteroid" && hostileTag != "AsteroidG" && hostileTag != "AsteroidH") {
     	asteroidBehave = hostile.GetComponent(AsteroidBehaviour);
     	asteroidBehave.curHP -= dmg * Time.deltaTime;
-    	asteroidBehave.HPCheck("bullet");
+    	asteroidBehave.HPCheck();
     }
     if (hostileTag == "AsteroidG" || hostileTag == "AsteroidH") {
     	var heading = hostile.transform.position - transform.position;

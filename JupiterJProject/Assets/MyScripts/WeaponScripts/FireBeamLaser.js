@@ -34,7 +34,7 @@ function Update () {
 		
 			var asterBehave = hit.transform.GetComponent(AsteroidBehaviour);
 			asterBehave.curHP -= beamDmg * Time.deltaTime;
-			asterBehave.HPCheck("bullet");
+			asterBehave.HPCheck();
 		
 		}
 	} else {

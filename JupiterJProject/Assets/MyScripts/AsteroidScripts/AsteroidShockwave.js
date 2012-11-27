@@ -19,7 +19,7 @@ var asterPlayer:AsteroidsPlayer;
 
 var exSizeCheck:Transform;
 var pickupMessagePrefab:Transform;
-//var mineralFizzle:Transform;
+var mineralFizzle:Transform;
 var transPos:Vector3;
 
 
@@ -53,7 +53,7 @@ function OnTriggerEnter (hostile:Collider){
 	
 	if (hostileTag.Substring(0,6) == "Pickup"){
 	
-		//Instantiate(mineralFizzle, hostileTransPos, Quaternion.identity);
+		Instantiate(mineralFizzle, hostileTransPos, Quaternion.identity);
 		Destroy(hostile.transform.parent.gameObject);
 	
 	}

@@ -30,6 +30,7 @@ function OnTriggerEnter (hostile:Collider) {
 		impact.transform.eulerAngles.x = 180;
 		if (hostileTag != "AsteroidG" && hostileTag != "AsteroidH") {
 			asteroidBehave.curHP -= bulletDmg;
+			asteroidBehave.HPCheck();
 		} else 
 			impact.GetComponent(Generic3SoundScript).enabled = true;
     	Destroy(gameObject);

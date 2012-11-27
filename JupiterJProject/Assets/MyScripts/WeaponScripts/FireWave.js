@@ -30,7 +30,7 @@ function Update () {
 		bullet.transform.Translate(0,0,0.2);
 		
 		bullet.rigidbody.velocity = rigidbody.velocity;
-		bullet.rigidbody.angularVelocity = rigidbody.angularVelocity;
+		//bullet.rigidbody.angularVelocity = rigidbody.angularVelocity;
 		
 		bullet.rigidbody.AddForce(transform.forward * waveSpd);
 		

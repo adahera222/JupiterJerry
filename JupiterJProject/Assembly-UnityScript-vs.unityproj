@@ -66,6 +66,7 @@
      <Compile Include="Assets\MyScripts\GUIScripts\RadarLight.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\RecordTime.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\ResourceTicker.js" />
+     <Compile Include="Assets\MyScripts\GUIScripts\ReturnOrRestart.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\RoundNum.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\ScoreKeeper.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\VersionNumScript.js" />
@@ -78,7 +79,6 @@
      <Compile Include="Assets\MyScripts\GravityConcept\GravityCamera.js" />
      <Compile Include="Assets\MyScripts\GravityConcept\Orbit.js" />
      <Compile Include="Assets\MyScripts\GravityConcept\PhysicsProperties.js" />
-     <Compile Include="Assets\MyScripts\Items\FlareScript.js" />
      <Compile Include="Assets\MyScripts\Items\GlowShockBehaviour.js" />
      <Compile Include="Assets\MyScripts\Items\PickupGlowScript.js" />
      <Compile Include="Assets\MyScripts\Items\PickupMessageScript.js" />
@@ -123,7 +123,6 @@
      <Compile Include="Assets\MyScripts\WeaponScripts\BombBehaviour.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\BombShockBehaviour.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\BulletEnemyCheck.js" />
-     <Compile Include="Assets\MyScripts\WeaponScripts\ClearLevelShockwave.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\FireAura.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\FireBeamLaser.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\FireBomb.js" />
@@ -131,6 +130,7 @@
      <Compile Include="Assets\MyScripts\WeaponScripts\FirePulseLaser.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\FireWave.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\MiniBombAlphaAdjust.js" />
+     <Compile Include="Assets\MyScripts\WeaponScripts\WaveformNewScript.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\WaveformScript.js" />
      <Compile Include="Assets\MyScripts\WeaponScripts\bulletDestroy.js" />
      <Compile Include="Assets\Standard Assets (Mobile)\Scripts\CameraRelativeControl.js" />

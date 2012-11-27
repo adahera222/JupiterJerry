@@ -26,24 +26,31 @@ var itemLeftButton:GUIStyle;
 var itemRightButton:GUIStyle;
 
 var restartButton:GUIStyle;
+var leftArrowButton:GUIStyle;
+var rightArrowButton:GUIStyle;
+var startRoundLabelStyle:GUIStyle;
+var startRoundDimStyle:GUIStyle;
+var startRoundStyle:GUIStyle;
+var yellowBoxTex:Texture;
+
 var returnToGameButton:GUIStyle;
 var returnToMenuButton:GUIStyle;
 var controlButton:GUIStyle;
 var itemInfoButton:GUIStyle;
+var continueButton:GUIStyle;
 
 var backButtonStyle:GUIStyle;
 var cameraBoxTex:Texture;
 
-var restartLoad = "MainLevel";
 var restartStyle:GUIStyle;
+var gameOverTex:Texture;
+var roundClearStyle:GUIStyle;
 
-var guiLevelStyle:GUIStyle;
 var initialStyle:GUIStyle;
 var initials:String = "---";
 
 var player:GameObject;
 var asterPlayer:AsteroidsPlayer;
-//var clearLevel:ClearLevel;
 var asteroidSpawn:AsteroidSpawn;
 
 var pause = false;
@@ -61,24 +68,10 @@ var starfield:Transform;
 // the height we want the camera to be above the target
 var height = 5.0;
 
-static var countdown = 5.0;
-var clearCountdown = 5.0;
-var clearCountdownLabel:String;
-var clearCountdownSound:AudioClip;
-var clearCountdownVolume:float;
-var clearPlayAt = 5.0;
-
 static var roundNum = 1;
-var roundTimeGoal:int;
-var roundMineralGoalBoost:float;
-var nukeCheck = false;
 var continueButtonPressChk = false;
 
 static var asteroidsClear = false;
-
-var startMessageEnable = true;
-var startMessageTimerStart:float;
-var startMessageTimer:float;
 
 var firePulse:FirePulseLaser;
 var fireBomb:FireBomb;
@@ -100,57 +93,32 @@ var fieldChargeOff:Texture;
 
 function Start(){
 
-	roundNum = 1;
-	startMessageTimer = startMessageTimerStart;
+	if (Application.loadedLevelName == "MainLevel")
+		roundNum = Menu.startRoundNormal;
+	else if (Application.loadedLevelName == "DarkLevel")
+		roundNum = Menu.startRoundDark;
 	player = GameObject.Find("PlayerShip");
 	asterPlayer = player.GetComponent(AsteroidsPlayer);
 	alienPortalScript = alienPortal.GetComponent(AlienPortal);
-//	clearLevel = player.GetComponent(ClearLevel);
 	asteroidSpawn = GameObject.Find("AsteroidSpawn").GetComponent(AsteroidSpawn);
 	pauseSound = false;
 	
 }
 
 function Update(){
-	
-	
-//	if (Resource1Script.resourceNum >= clearLevel.mineralGoal && AsteroidSpawn.asteroidNumber != 0){
-//		
-//		clearCountdown -= Time.deltaTime;
-//		if (clearCountdown < 0)
-//			clearCountdown = 0;
-//		
-//		var clearCountdownSeconds:int = clearCountdown % 60;
-//		var clearCountdownFraction:int = (clearCountdown * 100) % 100;
-//		
-//		clearCountdownLabel = String.Format("{0:0}:{1:00}", clearCountdownSeconds, clearCountdownFraction);
-//	}
-//	
+
 	AudioListener.volume = volSliderValue / 100.0;
-
-
+	
+	if (Application.loadedLevelName == "MainLevel" && roundNum > Menu.startRoundNormalMax && roundNum < 5)
+		Menu.startRoundNormalMax = roundNum;
+	if (Application.loadedLevelName == "DarkLevel" && roundNum > Menu.startRoundDarkMax && roundNum < 5)
+		Menu.startRoundDarkMax = roundNum;
+	
 }
 
 function FixedUpdate(){
 	
-//	if (startMessageTimer > 0)
-//		startMessageTimer -= Time.deltaTime;
-//	if (startMessageTimer <= 0)
-//		startMessageEnable = false;
-	
-//	if (Resource1Script.resourceNum >= clearLevel.mineralGoal && AsteroidSpawn.asteroidNumber != 0){
-//		
-//		if (clearCountdown <= clearPlayAt && clearCountdown != 0){
-//			AudioSource.PlayClipAtPoint(clearCountdownSound, transform.position, clearCountdownVolume);
-//			clearPlayAt--;
-//		}
-//	} else if (Resource1Script.resourceNum < clearLevel.mineralGoal){
-//		clearPlayAt = 5.0;
-//		clearCountdown = 5.0;
-//	}
-	
-//	if (clearCountdown <= 0)
-//		clearLevel.clearNow = true;
+
 	
 	if (AsteroidSpawn.asteroidNumber == 0 && asteroidSpawn.firstRoundStart == true){
 	
@@ -173,7 +141,6 @@ function FixedUpdate(){
 				
 			if (alienPortalScript.ready == true){
 				
-				
 				alienPortalScript.ready = false;
 				alienPortalScript.enabled = false;
 				alienPortalScript.beam = true;
@@ -185,10 +152,6 @@ function FixedUpdate(){
 				asteroidSpawn.GenerateAsteroids();
 				EnableDisablePlayer();
 				asteroidsClear = false;
-				//clearLevel.mineralGoal += roundMineralGoalBoost;
-				startMessageEnable = true;
-				startMessageTimer = startMessageTimerStart;
-				//clearLevel.nukeEnabled = true;
 				continueButtonPressChk = false;
 				asteroidSpawn.destroyAsteroids = false;
 				
@@ -227,8 +190,6 @@ function LateUpdate () {
 			if (orthoDefault - camera.orthographicSize > -0.05)
 				camera.orthographicSize = orthoDefault;
 		}
-		//starfield.localScale = Vector3.one;
-		//camera.orthographicSize = orthoDefault;
 	
 	}
 	if (Input.GetKeyDown("escape") && RestartCheck.enableRestart == false){
@@ -244,45 +205,39 @@ function LateUpdate () {
 }
 
 function OnGUI(){
-
-//	if (startMessageEnable == true && RestartCheck.enableRestart == false)
-//		GUI.Label(Rect(Screen.width / 2 - 400, Screen.height / 2 - 175, 800, 50), "Gather " + GameObject.Find("PlayerShip").GetComponent(ClearLevel).mineralGoal + " minerals to arm Super Rock-Smasher 9000", restartStyle);
-
-//	GUI.Label(Rect(Screen.width / 2 - 200, 0, 400, 50), "Round: " + roundNum + "        Asteroid Threat Level: " + asteroidSpawn.asteroidThreatLev, guiLevelStyle);
-	
-//	if (Resource1Script.resourceNum >= clearLevel.mineralGoal && AsteroidSpawn.asteroidNumber != 0 && RestartCheck.enableRestart == false)
-//		GUI.Label(Rect(Screen.width / 2 - 200, Screen.height / 2 - 250, 400, 100), "Super Rock-Smasher 9000 Armed!\n\nActivating in: " + clearCountdownLabel, restartStyle);
 	
 	if (pause == true){
 		
+		
+															// Pause Screen: Main
+															
 		if (currentScreen == "main"){
-			GUI.Label(Rect(Screen.width / 2 - 350, Screen.height * 0.2 - 25, 700, 200), "Game Paused", restartStyle);
+			GUI.Label(Rect(Screen.width / 2 - 163, Screen.height * 0.07, 326, 68), "Game Paused", restartStyle);
 			
 			GUI.Label(Rect(830, 220, 70, 40), "Volume", volTextStyle);
 			GUI.Box(Rect(855, 260, 20, 120), GUIContent.none, volSliderStyle);
 			volSliderValue = GUI.VerticalSlider(Rect(860, 270, 20, 100), volSliderValue, 100.0, 0.0);
 		
-			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.5 + 40, buttonWidth, buttonHeight), "", returnToGameButton)){
+			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.2, buttonWidth, buttonHeight), "", returnToGameButton)){
 				audio.Play();
 				pause = false;
 				EnableDisablePlayer();
 			}
-			if (GUI.Button(Rect(Screen.width * 0.25 - buttonWidth / 2, Screen.height * 0.5 + 130, buttonWidth, buttonHeight), "", restartButton)){
-				audio.Play();
-				pause = false;
-				Application.LoadLevel(restartLoad);
+			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.2 + 130, buttonWidth, buttonHeight), "", restartButton)){
+				GetComponent(ReturnOrRestart).returnOrRestart = "restart";
+				GetComponent(ReturnOrRestart).enabled = true;
 			}
-			if (GUI.Button(Rect(Screen.width * 0.5 - buttonWidth / 2, Screen.height * 0.5 + 130, buttonWidth, buttonHeight), "", gameInfoButton)){
+			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.2 + 220, buttonWidth, buttonHeight), "", gameInfoButton)){
 				audio.Play();
 				currentScreen = "gameInfo";
 			}
-			if (GUI.Button(Rect(Screen.width * 0.75 - buttonWidth / 2, Screen.height * 0.5 + 130, buttonWidth, buttonHeight), "", returnToMenuButton)){
-				audio.Play();
-				pause = false;
-				Application.LoadLevel("MainMenu");
+			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.2 + 310, buttonWidth, buttonHeight), "", returnToMenuButton)){
+				GetComponent(ReturnOrRestart).returnOrRestart = "return";
+				GetComponent(ReturnOrRestart).enabled = true;
 			}
 		}
 		
+															// Pause Screen: GameInfo
 		if (currentScreen == "gameInfo"){
 			
 			if (currentInfoScreen == "main"){
@@ -306,6 +261,7 @@ function OnGUI(){
 					currentScreen = "main";
 				}
 			}
+															// Pause Screen: Controls
 			if (currentInfoScreen == "controls"){
 	
 		//Draw control screen textures
@@ -340,6 +296,7 @@ function OnGUI(){
 				}
 		
 			}
+															// Pause Screen: Item Info
 			if (currentInfoScreen == "itemInfo"){
 				if (itemInfoScreen == "weapon"){
 					GUI.DrawTexture(Rect(0,0,800,600), itemInfoWeaponTex, ScaleMode.ScaleToFit, true, 0);
@@ -368,61 +325,130 @@ function OnGUI(){
 
 	if (RestartCheck.enableRestart == true){
 	
-		if (RestartCheck.crash == true)
-			var restartMessage:String = "Game Over";
-	
 		if (RestartCheck.crash == false){
 			EnableDisablePlayer();
 			
-			
-			
-			restartMessage = "Round " + roundNum + " clear!\n\n\nReady for another round?";
+			GUI.Label(Rect(Screen.width / 2 - 163, Screen.height * 0.2 - 30, 326, 68), "Round " + roundNum + " clear!", roundClearStyle);
+			GUI.Label(Rect(Screen.width / 2 - 350, Screen.height * 0.2, 700, 210), "Ready for another round?", restartStyle);
 			
 			if (asteroidsClear == true){
-				if ((GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.75 - buttonHeight, buttonWidth, buttonHeight), "Continue") || Input.GetKeyUp(KeyCode.Return))){
+				if ((GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.57, buttonWidth, buttonHeight), "", continueButton) || Input.GetKeyUp(KeyCode.Return))){
 					
 					audio.Play();
 					player.rigidbody.velocity = Vector3.zero;
 					player.rigidbody.angularVelocity = Vector3.zero;
-					if (roundNum == roundTimeGoal)
-						SaveScores();
-					//Old restart starter:   AsteroidSpawn.asteroidNumber = 0;
 					continueButtonPressChk = true;
 				
 					RestartCheck.enableRestart = false;
 				}
+				if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.57 + 90, buttonWidth, buttonHeight), "", returnToMenuButton)){
+					GetComponent(ReturnOrRestart).returnOrRestart = "return";
+					GetComponent(ReturnOrRestart).enabled = true;
+				}
 			}
 		}
-	
-/////////////////////////////////////	Restart Label	//////////////////////////////////////////////
-	
-		GUI.Label(Rect(Screen.width / 2 - 350, Screen.height * 0.2 - 30, 700, 210), restartMessage, restartStyle);
+		
 		
 ///////////////////////////////////// 	Input Initials	//////////////////////////////////////////////
 		
 		if ((RestartCheck.crash == true && Menu.aScoresN[9] < ScoreKeeper.score) && Application.loadedLevelName == "MainLevel"){
+		
+			GUI.DrawTexture(Rect(237, 100, 326, 67), gameOverTex, ScaleMode.ScaleToFit);
+			GUI.Label(Rect(Screen.width / 2 - 350, Screen.height * 0.2, 700, 210), "You earned a new high score!", restartStyle);
+			GUI.Label(Rect(Screen.width / 2 - 250, 270, 300, 60), "Input Initials:", restartStyle);
 			GUI.SetNextControlName("InputInitials");
-			initials = GUI.TextField(Rect(Screen.width / 2 - 100, Screen.height / 2 - 70, 200,40), initials.ToUpper(), 3, initialStyle);
+			initials = GUI.TextField(Rect(Screen.width / 2 + 20, 270, 120,60), initials.ToUpper(), 3, initialStyle);
 			GUI.FocusControl("InputInitials");
+			
 		} else if ((RestartCheck.crash == true && Menu.aDScoresN[9] < ScoreKeeper.score) && Application.loadedLevelName == "DarkLevel"){
-			GUI.SetNextControlName("InputInitials");
-			initials = GUI.TextField(Rect(Screen.width / 2 - 100, Screen.height / 2 - 70, 200,40), initials.ToUpper(), 3, initialStyle);
+		
+			GUI.DrawTexture(Rect(237, 100, 326, 67), gameOverTex, ScaleMode.ScaleToFit);
+			GUI.Label(Rect(Screen.width / 2 - 350, Screen.height * 0.2, 700, 210), "You earned a new high score!", restartStyle);
+			GUI.Label(Rect(Screen.width / 2 - 250, 270, 300, 60), "Input Initials:", restartStyle);
+			initials = GUI.TextField(Rect(Screen.width / 2 + 20, 270, 120,60), initials.ToUpper(), 3, initialStyle);
 			GUI.FocusControl("InputInitials");
-		}
+			
+		} else if (RestartCheck.crash == true)
+			GUI.DrawTexture(Rect(237, 170, 326, 67), gameOverTex, ScaleMode.ScaleToFit);
 		
 	
 ////////////////////////////////////	End-game menu buttons	/////////////////////////////////////
 	
-		if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.75 + buttonHeight / 2, buttonWidth, buttonHeight), "Return to Menu")){
-			audio.Play();
-			SaveScores();
-			Application.LoadLevel("MainMenu");
-		}
+		
 		if (RestartCheck.crash == true){
-			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.75 - buttonHeight, buttonWidth, buttonHeight), "Restart")){
-				audio.Play();
+			if (Application.loadedLevelName == "MainLevel"){
+				GUI.DrawTexture(Rect(443 + (49 * Menu.startRoundNormal), 31, 49, 49), yellowBoxTex, ScaleMode.ScaleToFit);
+				GUI.Label(Rect(295, 31, 148, 49), "Starting Round:", startRoundLabelStyle);
+				if (GUI.Button(Rect(443, 31, 49, 49), "", leftArrowButton)){
+					audio.Play();
+					if (Menu.startRoundNormal > 1)
+						Menu.startRoundNormal--;
+				}
+				GUI.Label(Rect(492, 31, 49, 49), "1", startRoundStyle);
+				
+				if (Menu.startRoundNormalMax > 1)
+					GUI.Label(Rect(541, 31, 49, 49), "2", startRoundStyle);
+				else
+					GUI.Label(Rect(541, 31, 49, 49), "2", startRoundDimStyle);
+				if (Menu.startRoundNormalMax > 2)
+					GUI.Label(Rect(590, 31, 49, 49), "3", startRoundStyle);
+				else
+					GUI.Label(Rect(590, 31, 49, 49), "3", startRoundDimStyle);
+				if (Menu.startRoundNormalMax > 3)
+					GUI.Label(Rect(639, 31, 49, 49), "4", startRoundStyle);
+				else
+					GUI.Label(Rect(639, 31, 49, 49), "4", startRoundDimStyle);
+				
+				if (GUI.Button(Rect(688, 31, 49, 49), "", rightArrowButton)){
+					audio.Play();
+					if (Menu.startRoundNormal < Menu.startRoundNormalMax)
+						Menu.startRoundNormal++;
+				}
+			}
+			if (Application.loadedLevelName == "DarkLevel"){
+				GUI.DrawTexture(Rect(443 + (49 * Menu.startRoundDark), 31, 49, 49), yellowBoxTex, ScaleMode.ScaleToFit);
+				GUI.Label(Rect(295, 31, 148, 49), "Starting Round:", startRoundLabelStyle);
+				if (GUI.Button(Rect(443, 31, 49, 49), "", leftArrowButton)){
+					audio.Play();
+					if (Menu.startRoundDark > 1)
+						Menu.startRoundDark--;
+				}
+				GUI.Label(Rect(492, 31, 49, 49), "1", startRoundStyle);
+			
+			
+			
+				if (Menu.startRoundDarkMax > 1)
+					GUI.Label(Rect(541, 31, 49, 49), "2", startRoundStyle);
+				else
+					GUI.Label(Rect(541, 31, 49, 49), "2", startRoundDimStyle);
+				
+				if (Menu.startRoundDarkMax > 2)
+					GUI.Label(Rect(590, 31, 49, 49), "3", startRoundStyle);
+				else
+					GUI.Label(Rect(590, 31, 49, 49), "3", startRoundDimStyle);
+					
+				if (Menu.startRoundDarkMax > 3)
+					GUI.Label(Rect(639, 31, 49, 49), "4", startRoundStyle);
+				else
+					GUI.Label(Rect(639, 31, 49, 49), "4", startRoundDimStyle);
+			
+			
+			
+				if (GUI.Button(Rect(688, 31, 49, 49), "", rightArrowButton)){
+					audio.Play();
+					if (Menu.startRoundDark < Menu.startRoundDarkMax)
+						Menu.startRoundDark++;
+				}
+			}
+			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.57, buttonWidth, buttonHeight), "", restartButton)){
 				SaveScores();
-				Application.LoadLevel(restartLoad);
+				GetComponent(ReturnOrRestart).returnOrRestart = "restart";
+				GetComponent(ReturnOrRestart).enabled = true;
+			}
+			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.57 + 90, buttonWidth, buttonHeight), "", returnToMenuButton)){
+				SaveScores();
+				GetComponent(ReturnOrRestart).returnOrRestart = "return";
+				GetComponent(ReturnOrRestart).enabled = true;
 			}
 		}
 	}
@@ -430,17 +456,7 @@ function OnGUI(){
 	if (continueButtonPressChk == true){
 
 		alienPortalScript.enabled = true;
-//////////////////    Old between round countdown     ////////////////	
-//		countdown -= Time.deltaTime;
-//		if (countdown < 0)
-//			countdown = 0;
 		
-//		var countdownSeconds:int = countdown % 60;
-//		var countdownFraction:int = (countdown * 100) % 100;
-		
-//		var nextLevelCountdownLabel = "Respawning Asteroids in: " + String.Format("{0:0}:{1:00}", countdownSeconds, countdownFraction);
-		
-//		GUI.Label(Rect(Screen.width /2 - 200, Screen.height / 2, 400, 200), nextLevelCountdownLabel, restartStyle);
 	}
 	var healthWidth = (asterPlayer.playerHealth / asterPlayer.playerHealthMax) * 150;
 	var shieldWidth = (shieldUp.shieldHealth / shieldUp.shieldHealthMax) * 151;
@@ -493,7 +509,6 @@ function EnableDisablePlayer(){
 	fireBomb.enabled = !fireBomb.enabled;
 	fireMini.enabled = !fireMini.enabled;
 	shieldUp.enabled = !shieldUp.enabled;
-	//player.GetComponent(ClearLevel).enabled = !player.GetComponent(ClearLevel).enabled;
 	fireBeam.enabled = !fireBeam.enabled;
 	fireAura.enabled = !fireAura.enabled;
 	fireWave.enabled = !fireWave.enabled;

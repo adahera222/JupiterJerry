@@ -11,9 +11,6 @@ function Start(){
 
 function OnGUI () {
 
-	if (RestartCheck.enableRestart == false){
-	
 		guiText.text = score.ToString();
-	}
 }
 

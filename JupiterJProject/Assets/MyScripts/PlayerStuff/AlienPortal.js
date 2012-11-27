@@ -3,6 +3,8 @@
 var ready = false;
 var player:Transform;
 var playerGrab:TractorBeamGrabPlayer;
+var shockEffect:Transform;
+var shocked = false;
 var tractorEffect:Transform;
 var tractorBeam = new Transform[4];
 var tractorOrigin = new Transform[4];
@@ -15,6 +17,7 @@ var message1 = false;
 var colorMessage1:Color;
 var message2 = false;
 var colorMessage2:Color;
+
 
 function Awake () {
 
@@ -47,27 +50,39 @@ function Update () {
 			clockGo = true;
 			if (message1 == false && clock > 0.75){
 		
-			var pickupMessage1 = Instantiate(pickupMessagePrefab, Vector3(0.5,0.52,0), Quaternion.identity);
+				shockEffect.renderer.enabled = true;
+			var pickupMessage1 = Instantiate(pickupMessagePrefab, Vector3(0.5,0.54,0), Quaternion.identity);
 				pickupMessage1.guiText.material.color = colorMessage1;
 				pickupMessage1.guiText.text = "Weapon Downgraded";
-				pickupMessage1.guiText.fontSize = 9;
+				pickupMessage1.guiText.fontSize = 12;
 				pickupMessage1.GetComponent(PickupMessageScript).alphaInterval = 0.75;
 				message1 = true;
 				Resource2Script.resource2Num = player.GetComponent(FirePulseLaser).startMin2;
 			}
+			
+			if (clock > 1 && shocked == false){
+				shockEffect.renderer.enabled = false;
+				shocked = true;
+			}				
 			if (message2 == false && clock > 2.0){
 		
-			var pickupMessage2 = Instantiate(pickupMessagePrefab, Vector3(0.5,0.52,0), Quaternion.identity);
+				shockEffect.renderer.enabled = true;
+			var pickupMessage2 = Instantiate(pickupMessagePrefab, Vector3(0.5,0.54,0), Quaternion.identity);
 				pickupMessage2.guiText.material.color = colorMessage2;
 				pickupMessage2.guiText.text = "Bombs Depleted";
-				pickupMessage2.guiText.fontSize = 9;
+				pickupMessage2.guiText.fontSize = 12;
 				pickupMessage2.GetComponent(PickupMessageScript).alphaInterval = 0.75;
 				message2 = true;
 				player.GetComponent(FireBomb).bombAmmo = 0;
 				player.GetComponent(FireBomb).canFire = false;
 			}
+			
+			if (clock > 2.25)
+				shockEffect.renderer.enabled = false;
+				
 			if (clock > 3.5){
 				ready = true;
+				shocked = false;
 			}
 		} else
 			ready = true;

@@ -14,6 +14,10 @@ var bombLaunchVolume:float;
 var notEnoughMineralsSound:Transform;
 var playBombReadySound = false;
 
+var clock = 0.0;
+var clockGo = false;
+var bombPUPrefab:Transform;
+
 function Start(){
 
 
@@ -23,6 +27,22 @@ function Start(){
 
 function Update () {
 
+	if (bombAmmo == 0)
+		clockGo = true;
+	else {
+		clockGo = false;
+		clock = 0.0;
+	}
+	
+	if (clockGo == true)
+		clock += Time.deltaTime;
+	
+	if (clock >= 30){
+		clock = 0.0;
+		var angle = Random.Range(0.0, 359.0);
+		Instantiate(bombPUPrefab, Vector3(0,3,0), Quaternion.Euler(0,angle,0));
+	}
+	
 	if (bombAmmo == 0 && CameraScript.roundNum > 1)
 		AsteroidBehaviour.pickupChanceBombBoost = zeroBombChanceBoost;
 	else
@@ -36,7 +56,7 @@ function Update () {
 		bomb.transform.eulerAngles.x = 90;
 		
 		bomb.rigidbody.velocity = rigidbody.velocity;
-		bomb.rigidbody.angularVelocity = rigidbody.angularVelocity;
+		//bomb.rigidbody.angularVelocity = rigidbody.angularVelocity;
 		
 		bomb.rigidbody.AddForce(transform.forward * bombSpd);
 		
@@ -52,16 +72,12 @@ function FixedUpdate () {
 	if (canFire == false){
 		if (bombAmmo > 0) {
 			ammoRecharge += Time.deltaTime;
-			//playBombReadySound = true;
 		}
 	}
 	if (bombAmmo > 0 && ammoRecharge >= rechargeDelay && canFire == false) {
 		canFire = true;
 		ammoRecharge = 0;
-		//if (playBombReadySound == true){
-		//	AudioSource.PlayClipAtPoint(bombReadySound, transform.position, bombReadyVolume);
-		//	playBombReadySound = false;
-		//}
+		
 	}
 	
 	if (bombAmmo == 0){

@@ -31,11 +31,11 @@ var asteroidPrefabS:Transform;
 var asteroidPrefabSx:Transform;
 var asteroidPrefabMx:Transform;
 
-var asterSmPoints = 1;
-var asterMedPoints = 3;
-var asterBigPoints = 7;
-var asterHugePoints = 37;
-var asterGigPoints = 158;
+var asterSPoints = 1;
+var asterMPoints = 4;
+var asterBPoints = 10;
+var asterHPoints = 52;
+var asterGPoints = 218;
 
 var burstSpdMinMBase = 50.0;
 var burstSpdMaxMBase = 100.0;
@@ -63,6 +63,12 @@ var firstRoundStart = false;
 
 static var gravityWellActive = false;
 
+var gigSpawn = true;
+var hugeSpawn = true;
+var hugeSpawnNum = 0.0;
+
+var round2HugeSpawn = false;
+
 function Start () {
 	
 	asteroidNumber = 0;
@@ -77,25 +83,30 @@ function Start () {
 function GenerateAsteroids(){
 
 	//var numAsteroids = Random.Range(minAsteroids, maxAsteroids);
+	if (Application.loadedLevelName == "PracticeLevel")
+		round2HugeSpawn = true;
 	var numAsteroids = numAsteroidsStart + ((CameraScript.roundNum - 1) * numAsteroidsLevUp);
 	if (numAsteroids > numAsteroidsMax)
 		numAsteroids = numAsteroidsMax;
 	spawnX = (border.GetComponent(TransformWrap).xStart * (1 + (border.GetComponent(TransformWrap).roundScaleIncrease * (CameraScript.roundNum - 1)))) - 5;
 	spawnZ = (border.GetComponent(TransformWrap).zStart * (1 + (border.GetComponent(TransformWrap).roundScaleIncrease * (CameraScript.roundNum - 1)))) - 5;
 	if (CameraScript.roundNum > 2 && Application.loadedLevelName != "PracticeLevel")
-		var gigSpawn = false;
+		gigSpawn = false;
 	else
 		gigSpawn = true;
 	
+
+	
 	for (var i = 0; i < numAsteroids; i++) {
+	//while (numAsteroids > 0){
 		percentChanceCalc = Random.Range(0.0, 100.0);
 		var asRotx = Random.Range(0.0,360.0);
 		var asRoty = Random.Range(0.0,360.0);
 		var asRotz = Random.Range(0.0,360.0);
 		var asZ = Random.Range((-1.0 * spawnZ), spawnZ);
 		var asX = Random.Range((-1.0 * spawnX), spawnX);
-				if (percentChanceG >= percentChanceCalc){
-					if (gigSpawn == false && CameraScript.roundNum > 2 && (asX < -17 || asX > 17 || asZ < -17 || asZ > 17)) {
+				if (gigSpawn == false){
+					if ((asX < -17 || asX > 17 || asZ < -17 || asZ > 17)) {
 						var asteroid = Instantiate(asteroidPrefabG, new Vector3(asX, 3, asZ), Quaternion.Euler(asRotx, asRoty, asRotz));
 						asteroid.rigidbody.AddRelativeForce(Vector3.forward * Random.Range(minSpd, maxSpd));
 						asteroid.GetComponent(AsteroidNewRoundScale).enabled = true;
@@ -104,15 +115,20 @@ function GenerateAsteroids(){
 						i--;
 					}
 				}
-				else if (gigSpawn == true && CameraScript.roundNum > 1 && GPKMath.WithinRangef(percentChanceCalc, percentChanceG, percentChanceH) && Application.loadedLevelName != "PracticeLevel"){
-					if (Physics.CheckSphere(Vector3(asX, 3, asZ), 7.5) == false && (asX < -15 || asX > 15 || asZ < -15 || asZ > 15)) {
+				else if (percentChanceCalc <= percentChanceH || (CameraScript.roundNum == 2 && round2HugeSpawn == false)){
+					if (gigSpawn == true && CameraScript.roundNum > 1 && Application.loadedLevelName != "PracticeLevel"){
+						if (Physics.CheckSphere(Vector3(asX, 3, asZ), 7.5) == false && (asX < -15 || asX > 15 || asZ < -15 || asZ > 15)) {
 						
-						asteroid = Instantiate(asteroidPrefabH, new Vector3(asX, 3, asZ), Quaternion.Euler(asRotx, asRoty, asRotz));
-						asteroid.rigidbody.AddRelativeForce(Vector3.forward * Random.Range(minSpd, maxSpd));
-						asteroid.GetComponent(AsteroidNewRoundScale).enabled = true;
-					}else{
+							asteroid = Instantiate(asteroidPrefabH, new Vector3(asX, 3, asZ), Quaternion.Euler(asRotx, asRoty, asRotz));
+							asteroid.rigidbody.AddRelativeForce(Vector3.forward * Random.Range(minSpd, maxSpd));
+							asteroid.GetComponent(AsteroidNewRoundScale).enabled = true;
+							round2HugeSpawn = true;
+							//numAsteroids -= asterHPoints;
+						}else{
+							i--;
+						}
+					} else
 						i--;
-					}
 				}
 				else if (gigSpawn == true && GPKMath.WithinRangef(percentChanceCalc, percentChanceH, percentChanceB)){
 					if (Physics.CheckSphere(Vector3(asX, 3, asZ), 2.5) == false && (asX < -10 || asX > 10 || asZ < -10 || asZ > 10)){
@@ -120,6 +136,7 @@ function GenerateAsteroids(){
 						asteroid = Instantiate(asteroidPrefabB, new Vector3(asX, 3, asZ), Quaternion.Euler(asRotx, asRoty, asRotz));
 						asteroid.rigidbody.AddRelativeForce(Vector3.forward * Random.Range(minSpd, maxSpd));
 						asteroid.GetComponent(AsteroidNewRoundScale).enabled = true;
+						//numAsteroids -= asterBPoints;
 					}else{
 						i--;
 					}
@@ -130,6 +147,7 @@ function GenerateAsteroids(){
 						asteroid = Instantiate(asteroidPrefabM, new Vector3(asX, 3, asZ), Quaternion.Euler(asRotx, asRoty, asRotz));
 						asteroid.rigidbody.AddRelativeForce(Vector3.forward * Random.Range(minSpd, maxSpd));
 						asteroid.GetComponent(AsteroidNewRoundScale).enabled = true;
+						//numAsteroids -= asterMPoints;
 					}else{
 						i--;
 					}
@@ -140,12 +158,12 @@ function GenerateAsteroids(){
 						asteroid = Instantiate(asteroidPrefabS, new Vector3(asX, 3, asZ), Quaternion.Euler(asRotx, asRoty, asRotz));
 						asteroid.rigidbody.AddRelativeForce(Vector3.forward * Random.Range(minSpd, maxSpd));
 						asteroid.GetComponent(AsteroidNewRoundScale).enabled = true;
+						//numAsteroids -= asterSPoints;
 					}else{
 						i--;
 					}
 				}
 		}
-	CameraScript.countdown = 5.0;
 	//asterSpawnSound.GetComponent(AsteroidNewRoundSound).enabled = true;
 	asterSpawnSound.audio.Play();
 }

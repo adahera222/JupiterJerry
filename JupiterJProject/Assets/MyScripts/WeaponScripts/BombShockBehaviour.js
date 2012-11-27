@@ -62,8 +62,13 @@ function OnTriggerEnter (hostile:Collider){
 			asteroidBehave.pickupChanceROF += pickupChanceBoost;
 			asteroidBehave.pickupChanceBomb += pickupChanceBoost;
 			asteroidBehave.pickupChanceWeapons += pickupChanceBoost;
-		if ((crackerBombShock == true && exSizeCheck.localScale.x <= crackLimit) || (hostile.tag != "AsteroidG" && hostile.tag != "AsteroidH"))
+			asteroidBehave.pickupChanceMegaBomb += pickupChanceBoost;
+			asteroidBehave.pickupChanceShield += pickupChanceBoost;
+			asteroidBehave.pickupChanceLights += pickupChanceBoost;
+		if ((crackerBombShock == true && exSizeCheck.localScale.x <= crackLimit) || (hostile.tag != "AsteroidG" && hostile.tag != "AsteroidH")){
 			asteroidBehave.curHP -= bombDmg;
+			asteroidBehave.HPCheck();
+		}
 	}
 
 	var hostileTransPos = hostile.transform.position;

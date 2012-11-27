@@ -18,6 +18,7 @@ var startButtonStyle:GUIStyle;
 var controlButtonStyle:GUIStyle;
 var highScoreButtonStyle:GUIStyle;
 var creditsButtonStyle:GUIStyle;
+var gameInfoButtonStyle:GUIStyle;
 
 var backButtonStyle:GUIStyle;
 var moreCreditsButtonStyle:GUIStyle;
@@ -63,6 +64,17 @@ var gameModeText:GUIStyle;
 	var startNormalTex:Texture;
 	var startPracticeTex:Texture;
 	var startDarkTex:Texture;
+	
+	static var startRoundNormal = 1;
+	static var startRoundDark = 1;
+	
+	static var startRoundNormalMax = 1;
+	static var startRoundDarkMax = 1;
+	
+	var startRoundLabelStyle:GUIStyle;
+	var startRoundStyle:GUIStyle;
+	var startRoundDimStyle:GUIStyle;
+	var yellowBoxTex:Texture;
 
 var genericGUIBackTex:Texture;
 var cameraBoxTex:Texture;
@@ -99,6 +111,8 @@ function Update(){
 		PlayerPrefsX.SetIntArray ("DScoreBoardN", aDScoresN);
 		PlayerPrefsX.SetStringArray ("DScoreBoardI", aDScoresI);
 	}
+	if (Time.timeScale != 1)
+		Time.timeScale = 1;
 	
 	AudioListener.volume = CameraScript.volSliderValue / 100.0;
 
@@ -206,6 +220,34 @@ function OnGUI () {
 		}
 		
 		if (currentStartTexture == "normal"){
+			GUI.DrawTexture(Rect(443 + (49 * startRoundNormal), 31, 49, 49), yellowBoxTex, ScaleMode.ScaleToFit);
+			GUI.Label(Rect(295, 31, 148, 49), "Starting Round:", startRoundLabelStyle);
+			if (GUI.Button(Rect(443, 31, 49, 49), "", startLeftButton)){
+				audio.Play();
+				if (startRoundNormal > 1)
+					startRoundNormal--;
+			}
+			GUI.Label(Rect(492, 31, 49, 49), "1", startRoundStyle);
+			
+			if (startRoundNormalMax > 1)
+				GUI.Label(Rect(541, 31, 49, 49), "2", startRoundStyle);
+			else
+				GUI.Label(Rect(541, 31, 49, 49), "2", startRoundDimStyle);
+			if (startRoundNormalMax > 2)
+				GUI.Label(Rect(590, 31, 49, 49), "3", startRoundStyle);
+			else
+				GUI.Label(Rect(590, 31, 49, 49), "3", startRoundDimStyle);
+			if (startRoundNormalMax > 3)
+				GUI.Label(Rect(639, 31, 49, 49), "4", startRoundStyle);
+			else
+				GUI.Label(Rect(639, 31, 49, 49), "4", startRoundDimStyle);
+			
+			if (GUI.Button(Rect(688, 31, 49, 49), "", startRightButton)){
+				audio.Play();
+				if (startRoundNormal < startRoundNormalMax)
+					startRoundNormal++;
+			}
+				
 			GUI.DrawTexture(Rect(274, 91, 478, 468), startNormalTex, ScaleMode.ScaleToFit, true, 0);
 			if (GUI.Button(Rect(600, 480, buttonWidth, buttonHeight), "", startBeginButton)){
 				audio.Play();
@@ -220,6 +262,40 @@ function OnGUI () {
 			}
 		}
 		if (currentStartTexture == "dark"){
+			GUI.DrawTexture(Rect(443 + (49 * startRoundDark), 31, 49, 49), yellowBoxTex, ScaleMode.ScaleToFit);
+			GUI.Label(Rect(295, 31, 148, 49), "Starting Round:", startRoundLabelStyle);
+			if (GUI.Button(Rect(443, 31, 49, 49), "", startLeftButton)){
+				audio.Play();
+				if (startRoundDark > 1)
+					startRoundDark--;
+			}
+			GUI.Label(Rect(492, 31, 49, 49), "1", startRoundStyle);
+			
+			
+			
+			if (startRoundDarkMax > 1)
+				GUI.Label(Rect(541, 31, 49, 49), "2", startRoundStyle);
+			else
+				GUI.Label(Rect(541, 31, 49, 49), "2", startRoundDimStyle);
+				
+			if (startRoundDarkMax > 2)
+				GUI.Label(Rect(590, 31, 49, 49), "3", startRoundStyle);
+			else
+				GUI.Label(Rect(590, 31, 49, 49), "3", startRoundDimStyle);
+				
+			if (startRoundDarkMax > 3)
+				GUI.Label(Rect(639, 31, 49, 49), "4", startRoundStyle);
+			else
+				GUI.Label(Rect(639, 31, 49, 49), "4", startRoundDimStyle);
+			
+			
+			
+			if (GUI.Button(Rect(688, 31, 49, 49), "", startRightButton)){
+				audio.Play();
+				if (startRoundDark < startRoundDarkMax)
+					startRoundDark++;
+			}
+			
 			GUI.DrawTexture(Rect(274, 91, 478, 468), startDarkTex, ScaleMode.ScaleToFit, true, 0);
 			if (GUI.Button(Rect(600, 480, buttonWidth, buttonHeight), "", startBeginButton)){
 				audio.Play();

@@ -1,15 +1,16 @@
 #pragma strict
 
-var addMin1 = "/";
+var weaponCheat = "/";
 var addScore = ".";
 var addMin2 = ",";
+var changeToWeapon:String;
 
 function Update () {
 
-	if (Input.GetKeyDown(addMin1))
-		Resource1Script.resourceNum += 10;
+	if (Input.GetKeyDown(weaponCheat))
+		AsteroidsPlayer.currentWeapon = changeToWeapon;
 		
-	if (Input.GetKeyDown(addScore))
+	if (Input.GetKey(addScore))
 		ScoreKeeper.score += 10;
 		
 	if (Input.GetKeyDown(addMin2))

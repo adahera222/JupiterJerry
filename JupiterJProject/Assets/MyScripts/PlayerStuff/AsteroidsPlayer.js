@@ -51,13 +51,6 @@ var colorMineral2:Color;
 var dmgMessageColor:Color;
 
 var impactDmgDivider:float;
-//var asteroidDmgG = 30;
-//var asteroidDmgH = 10;
-//var asteroidDmgB = 8;
-//var asteroidDmgM = 6;
-//var asteroidDmgS = 3;
-//var asteroidDmgM_sw = 12;
-//var asteroidDmgS_sw = 6;
 var extraLevelsDmg:float;
 
 var asteroidHurtCheck:AsteroidShockwave;
@@ -118,20 +111,6 @@ function Update () {
 	else
 		damaged = false;
 	extraLevelsDmg = asteroidSpawn.threatBeyondMaxLev * playerHealth1percent;
-
-////////////////   Old Player Heal     ////////////
-
-//	if (playerHealGoal <= 0 && playerHealth < playerHealthMax){
-//		if ((playerHealthMax - playerHealth) >= playerHealAmt)
-//			playerHealth += playerHealAmt;
-//		else if ((playerHealthMax - playerHealth) < playerHealAmt)
-//			playerHealth = playerHealthMax;
-//		playerHealGoal = playerHealGoalMax;
-//		var pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.5,0), Quaternion.identity);
-//		pickupMessage.guiText.material.color = colorMineral1;
-//		pickupMessage.guiText.text = "Repair Made";
-//		pickupMessage.GetComponent(PickupMessageScript).moveInterval *= -1;
-//	}
 	if (start == true){
 		if (Menu.currentControls == "keyLeft" || Menu.currentControls == "keyRight"){
 			if (Input.GetAxis("Horizontal")){
@@ -218,7 +197,6 @@ function Update () {
 function OnCollisionEnter (collision:Collision){
 	
 	var collisionTag:String = collision.transform.tag;
-//	Debug.Log(collision.relativeVelocity.magnitude);
 	if (collisionTag.Length > 8 && collisionTag.Substring(0,8) == "Asteroid") {
 	    
 	    if (shieldUpScript.shieldUpChk == false){
@@ -264,7 +242,7 @@ function OnCollisionEnter (collision:Collision){
 			dmgMessage.guiText.material.color = dmgMessageColor;
 			var playerDmgDealtText = Mathf.Round((playerDmgDealt / playerHealthMax) * 100);
 			dmgMessage.guiText.text = playerDmgDealtText.ToString();
-			dmgMessage.guiText.fontSize = 18;
+			dmgMessage.guiText.fontSize = 15;
 					
     }
 }
@@ -272,44 +250,6 @@ function OnCollisionEnter (collision:Collision){
 function OnTriggerEnter (hostile : Collider) {
 	
 	var hostileTag:String = hostile.tag;
-	//Debug.Log(hostileTag);
-//    if (hostileTag.Length > 8 && hostileTag.Substring(0,8) == "Asteroid") {
-//    
-//    	asteroidHurtCheck = hostile.gameObject.GetComponent(AsteroidShockwave);
-//    	
-//    	if (hostileTag == "AsteroidG"){
-//    		playerHealth -= asteroidDmgG;
-//    	}
-//    	if (hostileTag == "AsteroidH"){
-//    		playerHealth -= asteroidDmgH;
-//    	}
-//    	if (hostileTag == "AsteroidB"){
-//    		playerHealth -= asteroidDmgB + asteroidSpawn.threatBeyondMaxLev;
-//    	}
-//    	if (hostileTag == "AsteroidM"){
-//    		playerHealth -= asteroidDmgM + asteroidSpawn.threatBeyondMaxLev;
-//    	}
-//    	if (hostileTag == "AsteroidS"){
-//    		playerHealth -= asteroidDmgS + asteroidSpawn.threatBeyondMaxLev;
-//    	}
-//    	if (hostileTag == "AsteroidM_Ex"){
-//    		playerHealth -= asteroidDmgM + asteroidSpawn.threatBeyondMaxLev;
-//    	}
-//    	if (hostileTag == "AsteroidS_Ex"){
-//    		playerHealth -= asteroidDmgS + asteroidSpawn.threatBeyondMaxLev;
-//    	}
-//    	if (hostileTag == "AsteroidShock_s" && asteroidHurtCheck.hurtPlayer == true){
-//    		playerHealth -= asteroidDmgS_sw;
-//    		asteroidHurtCheck.hurtPlayer = false;
-//    	}
-//    		
-//    	if (hostileTag == "AsteroidShock_m" && asteroidHurtCheck.hurtPlayer == true){
-//    		playerHealth -= asteroidDmgM_sw;
-//    		asteroidHurtCheck.hurtPlayer = false;
-//    	}
-//    		
-    	
-//    }
     
     if (hostileTag.Substring(0,6) == "Pickup"){
     	
@@ -320,7 +260,7 @@ function OnTriggerEnter (hostile : Collider) {
     		
     			pickupScript.collected = true;
 				if (pickupScript.itemType == "ShipHeal"){
-					var pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.5,0), Quaternion.identity);
+					var pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.53,0), Quaternion.identity);
 					pickupMessage.guiText.material.color = colorMineral1;
 					pickupMessage.guiText.text = "Repair Preformed";
 					pickupMessage.GetComponent(PickupMessageScript).moveInterval *= -1;
@@ -330,17 +270,16 @@ function OnTriggerEnter (hostile : Collider) {
 						playerHealth = playerHealthMax;
 					else if (playerHealth == playerHealthMax){
 						pickupMessage.guiText.text = "No Damage to Ship";
-						//AudioSource.PlayClipAtPoint(healthAtMax, transform.position, healthAtMaxVolume);
 					}
 				}
 				if (pickupScript.itemType == "RateOfFire"){
-					pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.5,0), Quaternion.identity);
+					pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.53,0), Quaternion.identity);
 					pickupMessage.guiText.material.color = colorMineral1;
 					pickupMessage.guiText.text = "Weapon Upgrade";
 					Resource2Script.resource2Num += 1;
 				}
 				if (pickupScript.itemType == "Bomb"){
-					pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.5,0), Quaternion.identity);
+					pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.53,0), Quaternion.identity);
 					pickupMessage.guiText.material.color = colorMineral1;
 					pickupMessage.guiText.text = "+1 Bomb";
 					fireBomb.bombAmmo++;
@@ -351,7 +290,7 @@ function OnTriggerEnter (hostile : Collider) {
 					AudioSource.PlayClipAtPoint(megaBombShockSound, transform.position, megaBombShockVolume);
 				}
 				if (pickupScript.itemType == "Shield"){
-					pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.5,0), Quaternion.identity);
+					pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.53,0), Quaternion.identity);
 					pickupMessage.guiText.material.color = colorMineral1;
 					if (shieldUpScript.shieldUpChk == false){
 						shieldUpScript.shieldUp = true;
@@ -367,31 +306,20 @@ function OnTriggerEnter (hostile : Collider) {
 					
 				}
 				if (pickupScript.itemType == "GlowBomb"){
-					pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.5,0), Quaternion.identity);
+					pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.53,0), Quaternion.identity);
 					pickupMessage.guiText.material.color = colorMineral1;
 					pickupMessage.guiText.text = "Glow Bomb Activated";
 					Instantiate(glowBombShockPrefab, transform.position, Quaternion.identity);
-					//AudioSource.PlayClipAtPoint(megaBombShockSound, transform.position, megaBombShockVolume);
 				}
 				if (pickupScript.itemType == "ShipGlow"){
-					pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.5,0), Quaternion.identity);
+					pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.53,0), Quaternion.identity);
 					pickupMessage.guiText.material.color = colorMineral1;
 					pickupMessage.guiText.text = "Ship Glow Bonus";
 					shipGlowLight.light.range += 1;
 				}
-				if (pickupScript.itemType == "Flare"){
-					pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.5,0), Quaternion.identity);
-					pickupMessage.guiText.material.color = colorMineral1;
-					pickupMessage.guiText.text = "Flare Activated";
-					Instantiate(flarePrefab, transform.position, Quaternion.identity);
-					//AudioSource.PlayClipAtPoint(megaBombShockSound, transform.position, megaBombShockVolume);
-				}
 				Destroy(hostile.transform.parent.gameObject, 0.1);
 				
 			}
-			//		Part of Old Player Heal
-			//if (playerHealth == 100)
-			//	playerHealGoal = playerHealGoalMax;
 		}
     	
     	if (hostileTag == "PickupW"){
@@ -400,7 +328,7 @@ function OnTriggerEnter (hostile : Collider) {
     		if (pickupScript.collected == false){
     		
     			pickupScript.collected = true;
-    			pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.5,0), Quaternion.identity);
+    			pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.53,0), Quaternion.identity);
 				pickupMessage.guiText.material.color = colorMineral2;
 				if (pickupScript.weaponType == "SinglePulse")
 					pickupMessage.guiText.text = "Single Pulser";

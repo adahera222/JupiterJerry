@@ -1,7 +1,6 @@
 #pragma strict
 
 var auraPrefab:Transform;
-var auraParticlePrefab:Transform;
 var charge:float;
 var chargeMax:float;
 
@@ -13,7 +12,6 @@ function Update () {
 	if (AsteroidsPlayer.currentWeapon == "Aura"){
 		if (Input.GetButtonDown("Fire1")){
 			var aura = Instantiate(auraPrefab, transform.position, Quaternion.identity);
-			//var auraPart = Instantiate(auraParticlePrefab, transform.position, Quaternion.identity);
 		}
 	}
 		
