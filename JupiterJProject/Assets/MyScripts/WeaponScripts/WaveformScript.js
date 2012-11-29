@@ -55,7 +55,8 @@ function OnTriggerEnter(hostile:Collider){
     		heading = hostile.transform.position - transform.position;
     		hostile.rigidbody.AddForce(heading * (repell/10));
     		waveParentObject.alreadyHit = hostile.gameObject;
-    		Destroy(gameObject);
+    		if (waveDmg == true)
+    			Destroy(transform.parent.gameObject);
     	}
 	}
 }

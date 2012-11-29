@@ -50,6 +50,7 @@ function Update () {
 			clockGo = true;
 			if (message1 == false && clock > 0.75){
 		
+				audio.Play();
 				shockEffect.renderer.enabled = true;
 			var pickupMessage1 = Instantiate(pickupMessagePrefab, Vector3(0.5,0.54,0), Quaternion.identity);
 				pickupMessage1.guiText.material.color = colorMessage1;
@@ -65,7 +66,8 @@ function Update () {
 				shocked = true;
 			}				
 			if (message2 == false && clock > 2.0){
-		
+				
+				audio.Play();
 				shockEffect.renderer.enabled = true;
 			var pickupMessage2 = Instantiate(pickupMessagePrefab, Vector3(0.5,0.54,0), Quaternion.identity);
 				pickupMessage2.guiText.material.color = colorMessage2;

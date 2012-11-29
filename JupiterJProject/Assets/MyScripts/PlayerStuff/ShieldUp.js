@@ -8,6 +8,9 @@ var guiShield:GameObject;
 var shieldHealth:float;
 var shieldHealthMax:float;
 
+var shieldSpawn:AudioClip;
+var shieldSpawnVolume:float;
+
 var playerShieldScript:PlayerShieldScript;
 
 function Start () {
@@ -19,6 +22,7 @@ function Update () {
 	if (shieldUpChk == false && shieldUp == true){
 		
 		var shield = Instantiate(playerShield, transform.position, Quaternion.identity);
+		AudioSource.PlayClipAtPoint(shieldSpawn, transform.position, shieldSpawnVolume);
 		playerCol.collider.enabled = false;
 		shieldUpChk = true;
 		playerShieldScript = shield.GetComponent(PlayerShieldScript);

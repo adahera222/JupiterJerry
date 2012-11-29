@@ -17,8 +17,6 @@ var playerHeal = true;
 var playerHealAmt:float;
 var playerHealGoal:float;
 var playerHealGoalMax:float;
-var healthAtMax:AudioClip;
-var healthAtMaxVolume:float;
 		
 		var hullTapSound = new AudioClip[3];
 		var hullTapVolume:float;
@@ -35,6 +33,9 @@ var healthAtMaxVolume:float;
 		var shieldImpactVolume:float;
 		var shieldImpactVolumeMin:float;
 		var shieldImpactVolumeMax:float;
+	
+		var shieldCrack:AudioClip;
+		var shieldCrackVolume:float;
 
 var rotFollowObj:Transform;
 var explosionPrefab:Transform;
@@ -100,7 +101,6 @@ function Update () {
 	if (start == false && startClock > 0.75)
 		transform.renderer.material.color.a += alphaInterval * Time.deltaTime;
 	if (transform.renderer.material.color.a >= 1 && start == false){
-		audio.enabled = false;
 		if (Application.loadedLevelName == "DarkLevel")
 			GetComponent(GiveRadar).enabled = true;
 		GetComponent(FirePulseLaser).enabled = true;
@@ -230,10 +230,13 @@ function OnCollisionEnter (collision:Collision){
     		shieldScript.shieldHealth -= playerDmgDealt;
     		
     	///////////   	Shield Impact Sound		////////////////	 
-    		shieldImpactVolume = ((playerDmgDealt / playerHealthMax) * (shieldImpactVolumeMax - shieldImpactVolumeMin)) + shieldImpactVolumeMin;
+    		if (shieldScript.shieldHealth > 0){
+    			shieldImpactVolume = ((playerDmgDealt / playerHealthMax) * (shieldImpactVolumeMax - shieldImpactVolumeMin)) + shieldImpactVolumeMin;
     		
-    		audioSelection = Random.Range(0, 3);
-    		AudioSource.PlayClipAtPoint(shieldImpactSound[audioSelection], transform.position, shieldImpactVolume);
+    			audioSelection = Random.Range(0, 3);
+    			AudioSource.PlayClipAtPoint(shieldImpactSound[audioSelection], transform.position, shieldImpactVolume);
+    		} else
+    			AudioSource.PlayClipAtPoint(shieldCrack, transform.position, shieldCrackVolume);
     		
    		}
    		
