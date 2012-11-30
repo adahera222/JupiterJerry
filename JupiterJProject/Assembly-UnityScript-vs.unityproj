@@ -87,6 +87,7 @@
      <Compile Include="Assets\MyScripts\Items\Resource2Script.js" />
      <Compile Include="Assets\MyScripts\KillObject.js" />
      <Compile Include="Assets\MyScripts\KillParticle.js" />
+     <Compile Include="Assets\MyScripts\KongregateAPI.js" />
      <Compile Include="Assets\MyScripts\MenuScripts\Menu.js" />
      <Compile Include="Assets\MyScripts\MenuScripts\MenuAsteroids.js" />
      <Compile Include="Assets\MyScripts\MenuScripts\MenuHighScore.js" />

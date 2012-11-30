@@ -82,6 +82,8 @@ var cameraBoxTex:Texture;
 var volTextStyle:GUIStyle;
 var volSliderStyle:GUIStyle;
 
+var scoreButton:GUIStyle;
+
 function Start () {
 	
 	if (aScoresN.length != 10){
@@ -414,6 +416,8 @@ static function RankKillScore(initialString: String, curScore:float, level:Strin
 		
 		PlayerPrefsX.SetIntArray ("ScoreBoardN", aScoresN);
 		PlayerPrefsX.SetStringArray ("ScoreBoardI", aScoresI);
+		if (KongregateAPI.isKongregate == true)
+			Application.ExternalCall("kongregate.stats.submit","HighScoreNormal",curScore);
 	} else if (level == "dark"){
 		if (curScore != 0){
 	
@@ -432,6 +436,8 @@ static function RankKillScore(initialString: String, curScore:float, level:Strin
 		}
 		PlayerPrefsX.SetIntArray ("DScoreBoardN", aDScoresN);
 		PlayerPrefsX.SetStringArray ("DScoreBoardI", aDScoresI);
+		if (KongregateAPI.isKongregate == true)
+			Application.ExternalCall("kongregate.stats.submit","HighScoreDark",curScore);
 	}
 }
 

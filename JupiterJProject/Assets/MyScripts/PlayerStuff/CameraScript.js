@@ -91,6 +91,16 @@ var healthShieldOff:Texture;
 var fieldCharge:Texture;
 var fieldChargeOff:Texture;
 
+var singlePulseTex:Texture;
+var doublePulseTex:Texture;
+var triplePulseTex:Texture;
+var miniBombTex:Texture;
+var auraTex:Texture;
+var waveTex:Texture;
+var beamTex:Texture;
+
+var weaponButton:GUIStyle;
+
 function Start(){
 
 	if (Application.loadedLevelName == "MainLevel")
@@ -234,6 +244,38 @@ function OnGUI(){
 			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.2 + 310, buttonWidth, buttonHeight), "", returnToMenuButton)){
 				GetComponent(ReturnOrRestart).returnOrRestart = "return";
 				GetComponent(ReturnOrRestart).enabled = true;
+			}
+			
+			if (Application.loadedLevelName == "PracticeLevel"){
+				GUI.Label(Rect(100, 100, 150, 60), "Choose Your\nWeapon:", startRoundLabelStyle);
+				if (GUI.Button(Rect(100, 160, 64, 64), singlePulseTex, weaponButton)){
+					audio.Play();
+					AsteroidsPlayer.currentWeapon = "SinglePulse";
+				}
+				if (GUI.Button(Rect(100, 240, 64, 64), doublePulseTex, weaponButton)){
+					audio.Play();
+					AsteroidsPlayer.currentWeapon = "DoublePulse";
+				}
+				if (GUI.Button(Rect(100, 320, 64, 64), triplePulseTex, weaponButton)){
+					audio.Play();
+					AsteroidsPlayer.currentWeapon = "TriplePulse";
+				}
+				if (GUI.Button(Rect(100, 400, 64, 64), beamTex, weaponButton)){
+					audio.Play();
+					AsteroidsPlayer.currentWeapon = "BeamLaser";
+				}
+				if (GUI.Button(Rect(180, 160, 64, 64), auraTex, weaponButton)){
+					audio.Play();
+					AsteroidsPlayer.currentWeapon = "Aura";
+				}
+				if (GUI.Button(Rect(180, 240, 64, 64), waveTex, weaponButton)){
+					audio.Play();
+					AsteroidsPlayer.currentWeapon = "Waveform";
+				}
+				if (GUI.Button(Rect(180, 320, 64, 64), miniBombTex, weaponButton)){
+					audio.Play();
+					AsteroidsPlayer.currentWeapon = "MiniBomb";
+				}
 			}
 		}
 		
