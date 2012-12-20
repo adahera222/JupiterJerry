@@ -1,7 +1,5 @@
 #pragma strict
 
-@script RequireComponent (Rigidbody)
-
 var acceleration = 3.0;
 var thrust:float;
 var latThrust:float;
@@ -87,6 +85,7 @@ function Start(){
 
 function FixedUpdate(){
 	
+// Increases rotation slowdown when keyboard controls are active and player releases the rotate key
 	if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxis("JoyHorizontal")){ 
 			rotStop = 1.0;
 		} else {
@@ -96,6 +95,7 @@ function FixedUpdate(){
 }
 
 function Update () {
+// Initial fade in of player ship
 	if (startClock < 0.75)
 		startClock += Time.deltaTime;
 	if (start == false && startClock > 0.75)
@@ -106,12 +106,17 @@ function Update () {
 		GetComponent(FirePulseLaser).enabled = true;
 		start = true;
 	}
+	
 	if (playerHealth < playerHealthMax)
 		damaged = true;
 	else
 		damaged = false;
+		
+// Determines how much extra damage per point of threatBeyondMaxLev
 	extraLevelsDmg = asteroidSpawn.threatBeyondMaxLev * playerHealth1percent;
+	
 	if (start == true){
+		// Controls scripting
 		if (Menu.currentControls == "keyLeft" || Menu.currentControls == "keyRight"){
 			if (Input.GetAxis("Horizontal")){
 				var input = Input.GetAxis("Horizontal");
@@ -121,7 +126,7 @@ function Update () {
 			transform.Rotate(0, input * rotateSpeed * rotStop * Time.deltaTime, 0);
 		}
 		if (Menu.currentControls == "mouse"){
-			transform.LookAt(rotFollowObj);
+			transform.LookAt(rotFollowObj); // Mouse look
 			
 			if (Input.GetAxis("Horizontal") != 0) {
 		
@@ -139,7 +144,7 @@ function Update () {
 			}
 		}
 		if (Input.GetAxis("Vertical") != 0){
-			// Samples whether input is positive or negative
+		
 			var thrustInput = Input.GetAxis("Vertical");
 			
 			//Applies sampled input to the rate at which you want the ship to accelerate
@@ -157,6 +162,7 @@ function Update () {
 			}
 			
 		}
+	// Makes sure thruster particle effects turn off when there is no input
 		if (!Input.GetButton("AllStop") && thrustInput <= 0){
 			thrustersPrefabB.particleSystem.enableEmission = false;
 			thrustersPrefabB.audio.enabled = false;
@@ -173,7 +179,7 @@ function Update () {
 			thrustersPrefabL.particleSystem.enableEmission = false;
 			thrustersPrefabL.audio.enabled = false;
 		}
-	
+	// Brake button
 		if (Input.GetButton("AllStop")){
 			rigidbody.AddForce(rigidbody.velocity.normalized * -acceleration * Time.deltaTime);
 			thrustersPrefabF.particleSystem.enableEmission = true;
@@ -182,7 +188,7 @@ function Update () {
 			thrustersPrefabR.particleSystem.enableEmission = true;
 			thrustersPrefabB.audio.enabled = true;
 		}
-	
+	// Player destroy scripting
 		if (playerHealth <= 0) {
 	    		playerHealth = 0;
 	    		Destroy(gameObject);
@@ -199,6 +205,7 @@ function OnCollisionEnter (collision:Collision){
 	var collisionTag:String = collision.transform.tag;
 	if (collisionTag.Length > 8 && collisionTag.Substring(0,8) == "Asteroid") {
 	    
+	    // Hull Damage scripting
 	    if (shieldUpScript.shieldUpChk == false){
     		if (Mathf.Round(collision.relativeVelocity.magnitude * collision.rigidbody.mass) > playerHealth1percent)
     			playerDmgDealt = Mathf.Round(collision.relativeVelocity.magnitude * collision.rigidbody.mass) + extraLevelsDmg;
@@ -206,7 +213,7 @@ function OnCollisionEnter (collision:Collision){
     			playerDmgDealt = playerHealth1percent + extraLevelsDmg;
     		playerHealth -= playerDmgDealt;
     	
-    	///////////   	Hull Impact Sound		////////////////	    		
+    	// Hull Impact Sound    		
     		if (playerDmgDealt < asterImpact2Threshold){
     			var audioSelection = Random.Range(0, 3);
     			AudioSource.PlayClipAtPoint(hullTapSound[audioSelection], transform.position, hullTapVolume);
@@ -222,6 +229,7 @@ function OnCollisionEnter (collision:Collision){
     		
     		
     	}
+    	// Shield damage scripting
     	if (shieldUpScript.shieldUpChk == true){
     		if (Mathf.Round(collision.relativeVelocity.magnitude * collision.rigidbody.mass) > playerHealth1percent)
     			playerDmgDealt = (Mathf.Round(collision.relativeVelocity.magnitude * collision.rigidbody.mass) + extraLevelsDmg) * shieldScript.dmgMultiplier;
@@ -229,7 +237,7 @@ function OnCollisionEnter (collision:Collision){
     			playerDmgDealt = shieldScript.dmgMultiplier * (playerHealth1percent + extraLevelsDmg);
     		shieldScript.shieldHealth -= playerDmgDealt;
     		
-    	///////////   	Shield Impact Sound		////////////////	 
+    	// Shield Impact Sound
     		if (shieldScript.shieldHealth > 0){
     			shieldImpactVolume = ((playerDmgDealt / playerHealthMax) * (shieldImpactVolumeMax - shieldImpactVolumeMin)) + shieldImpactVolumeMin;
     		
@@ -240,7 +248,7 @@ function OnCollisionEnter (collision:Collision){
     		
    		}
    		
-   		///////////  Damage Message /////////////////
+   		// Damage Message
    		var dmgMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.52,0), Quaternion.identity);
 			dmgMessage.guiText.material.color = dmgMessageColor;
 			var playerDmgDealtText = Mathf.Round((playerDmgDealt / playerHealthMax) * 100);
@@ -250,15 +258,15 @@ function OnCollisionEnter (collision:Collision){
     }
 }
 
-function OnTriggerEnter (hostile : Collider) {
+// Item collection scripting
+function OnTriggerEnter (item : Collider) {
 	
-	var hostileTag:String = hostile.tag;
-    
-    if (hostileTag.Substring(0,6) == "Pickup"){
+	var itemTag:String = item.tag;
+    if (itemTag.Substring(0,6) == "Pickup"){
     	
-    	if (hostileTag == "PickupItem"){
+    	if (itemTag == "PickupItem"){
     		
-    		var pickupScript = hostile.GetComponent(PickupScript);
+    		var pickupScript = item.GetComponent(PickupScript);
     		if (pickupScript.collected == false){
     		
     			pickupScript.collected = true;
@@ -318,16 +326,17 @@ function OnTriggerEnter (hostile : Collider) {
 					pickupMessage = Instantiate(pickupMessagePrefab, Vector3(0.5,0.53,0), Quaternion.identity);
 					pickupMessage.guiText.material.color = colorMineral1;
 					pickupMessage.guiText.text = "Ship Glow Bonus";
-					shipGlowLight.light.range += 1;
+					shipGlowLight.light.range += 1.3;
+					//shipGlowLight.light.intensity += 0.05;
 				}
-				Destroy(hostile.transform.parent.gameObject, 0.1);
+				Destroy(item.transform.parent.gameObject, 0.1);
 				
 			}
 		}
     	
-    	if (hostileTag == "PickupW"){
+    	if (itemTag == "PickupW"){
     		
-    		 	pickupScript = hostile.GetComponent(PickupScript);
+    		 	pickupScript = item.GetComponent(PickupScript);
     		if (pickupScript.collected == false){
     		
     			pickupScript.collected = true;
@@ -347,16 +356,8 @@ function OnTriggerEnter (hostile : Collider) {
 					pickupMessage.guiText.text = "Disintegration Field";
 				if (pickupScript.weaponType == "Waveform")
 					pickupMessage.guiText.text = "Wave Emitter";
-				Destroy(hostile.transform.parent.gameObject, 0.1);
-				//if (pickupScript.weaponType == currentWeapon)
-				//	Resource2Script.resource2Num += 2;
-				//else {
+				Destroy(item.transform.parent.gameObject, 0.1);
 				currentWeapon = pickupScript.weaponType;
-				//	if (pickupScript.weaponType == "TriplePulse")
-				//		Resource2Script.resource2Num = gameObject.GetComponent(FirePulseLaser).startMin2TriplePulse;
-				//	else
-				//		Resource2Script.resource2Num = gameObject.GetComponent(FirePulseLaser).startMin2;
-				//}
 			}
 		}
     	

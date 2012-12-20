@@ -30,11 +30,11 @@ static var currentControls = "mouse";
 var currentScreen = "main";
 var scoreRankNumbers = " 1.\n 2.\n 3.\n 4.\n 5.\n 6.\n 7.\n 8.\n 9.\n10.";
 
-static var aScoresN = PlayerPrefsX.GetIntArray ("ScoreBoardN");
-static var aScoresI = PlayerPrefsX.GetStringArray ("ScoreBoardI");
+static var aScoresN:int[];
+static var aScoresI:String[];
 
-static var aDScoresN = PlayerPrefsX.GetIntArray ("DScoreBoardN");
-static var aDScoresI = PlayerPrefsX.GetStringArray ("DScoreBoardI");
+static var aDScoresN:int[];
+static var aDScoresI:String[];
 
 var controlRightTex:Texture;
 var controlLeftTex:Texture;
@@ -52,14 +52,9 @@ var startBeginButton:GUIStyle;
 var gameModeText:GUIStyle;
 
 	var startTexture:Texture;
-	var currentStartTexture = "comic";
+	var currentStartTexture = "poster";
 
-	var startComicCurrentFrame = 1;
-	var startComic1:Texture;
-	var startComic2:Texture;
-	var startComic3:Texture;
-	var startComic4:Texture;
-	var startComic5:Texture;
+	var startPosterTex:Texture;
 	
 	var startNormalTex:Texture;
 	var startPracticeTex:Texture;
@@ -81,24 +76,40 @@ var cameraBoxTex:Texture;
 
 var volTextStyle:GUIStyle;
 var volSliderStyle:GUIStyle;
+var volThumbStyle:GUIStyle;
 
 var scoreButton:GUIStyle;
 
+var allAboardSound:Transform;
+var allAboardPlayed = false;
+
+	var musicOnTex:Texture;
+	var musicOffTex:Texture;
+	static var musicMute = false;
+	var musicObject:Transform;
+	var musicButton:GUIStyle;
+	var musicDefaultVolume:float;
+
 function Start () {
-	
+
+	aScoresN = PlayerPrefsX.GetIntArray ("ScoreBoardv1N");
+	aScoresI = PlayerPrefsX.GetStringArray ("ScoreBoardv1I");
+
+	aDScoresN = PlayerPrefsX.GetIntArray ("DScoreBoardv1N");
+	aDScoresI = PlayerPrefsX.GetStringArray ("DScoreBoardv1I");
 	if (aScoresN.length != 10){
 		aScoresN = Array (0,0,0,0,0,0,0,0,0,0);
 	}
 	if (aScoresI.length != 10){
 		aScoresI = Array ("---", "---", "---", "---", "---", "---", "---", "---", "---", "---");
-	
-		if (aDScoresN.length != 10)
-			aDScoresN = [0,0,0,0,0,0,0,0,0,0];
-		
-		if (aDScoresI.length != 10)
-			aDScoresI = ["---", "---", "---", "---", "---", "---", "---", "---", "---", "---"];
 	}
-	titleLabel = "Jupiter Jerry's Tour of the Kuiper Belt";
+	if (aDScoresN.length != 10)
+		aDScoresN = [0,0,0,0,0,0,0,0,0,0];
+		
+	if (aDScoresI.length != 10)
+		aDScoresI = ["---", "---", "---", "---", "---", "---", "---", "---", "---", "---"];
+	
+	musicDefaultVolume = musicObject.audio.volume;
 }
 
 function Update(){
@@ -106,12 +117,12 @@ function Update(){
 	if (Input.GetKey("q") && Input.GetKey("l")){
 		aScoresN = Array (0,0,0,0,0,0,0,0,0,0);
 		aScoresI = Array ("---", "---", "---", "---", "---", "---", "---", "---", "---", "---");
-		PlayerPrefsX.SetIntArray ("ScoreBoardN", aScoresN);
-		PlayerPrefsX.SetStringArray ("ScoreBoardI", aScoresI);
+		PlayerPrefsX.SetIntArray ("ScoreBoardv1N", aScoresN);
+		PlayerPrefsX.SetStringArray ("ScoreBoardv1I", aScoresI);
 		aDScoresN = Array (0,0,0,0,0,0,0,0,0,0);
 		aDScoresI = Array ("---", "---", "---", "---", "---", "---", "---", "---", "---", "---");
-		PlayerPrefsX.SetIntArray ("DScoreBoardN", aDScoresN);
-		PlayerPrefsX.SetStringArray ("DScoreBoardI", aDScoresI);
+		PlayerPrefsX.SetIntArray ("DScoreBoardv1N", aDScoresN);
+		PlayerPrefsX.SetStringArray ("DScoreBoardv1I", aDScoresI);
 	}
 	if (Time.timeScale != 1)
 		Time.timeScale = 1;
@@ -169,15 +180,20 @@ function OnGUI () {
 	
 	if (currentScreen == "main"){
 
-		//GUI.Label(Rect(720, 370, 70, 40), "Volume", volTextStyle);
-		//GUI.Box(Rect(705, 410, 20, 120), GUIContent.none, volSliderStyle);
-		//CameraScript.volSliderValue = GUI.VerticalSlider(Rect(750, 420, 20, 100), CameraScript.volSliderValue, 100.0, 0.0);
+		GUI.Label(Rect(30, 385, 70, 40), "Volume", volTextStyle);
+		CameraScript.volSliderValue = GUI.VerticalSlider(Rect(60, 420, 20, 100), CameraScript.volSliderValue, 100.0, 0.0, volSliderStyle, volThumbStyle);
 
-		if (GUI.Button(Rect(456, 349, buttonWidth, buttonHeight), "", startButtonStyle)){
+		if (GUI.Button(Rect(456, 349, buttonWidth, buttonHeight), GUIContent.none, startButtonStyle)){
 			audio.Play();
+			var num = Random.Range(0,3);
+			if (num == 2)
+				allAboardPlayed = false;
+			if (allAboardPlayed == false){
+				allAboardPlayed = true;
+				allAboardSound.audio.Play(44100 * 0.32);
+			}
 			currentScreen = "start";
-			currentStartTexture = "comic";
-			startComicCurrentFrame = 1;		
+			currentStartTexture = "poster";
 		}
 		if (GUI.Button(Rect(609, 349, buttonWidth, buttonHeight), "", controlButtonStyle)){
 			audio.Play();
@@ -191,34 +207,14 @@ function OnGUI () {
 			audio.Play();
 			currentScreen = "credits";
 		}
+		
 	}
 	if (currentScreen == "start"){
 		
-		if (currentStartTexture == "comic"){			
+		if (currentStartTexture == "poster"){			
 			
-			if (startComicCurrentFrame == 1)
-				GUI.DrawTexture(Rect(274, 91, 478, 468), startComic1, ScaleMode.ScaleToFit, true, 0);
-			if (startComicCurrentFrame == 2)
-				GUI.DrawTexture(Rect(274, 91, 478, 468), startComic2, ScaleMode.ScaleToFit, true, 0);
-			if (startComicCurrentFrame == 3)
-				GUI.DrawTexture(Rect(274, 91, 478, 468), startComic3, ScaleMode.ScaleToFit, true, 0);
-			if (startComicCurrentFrame == 4)
-				GUI.DrawTexture(Rect(274, 91, 478, 468), startComic4, ScaleMode.ScaleToFit, true, 0);
-			if (startComicCurrentFrame == 5)
-				GUI.DrawTexture(Rect(274, 91, 478, 468), startComic5, ScaleMode.ScaleToFit, true, 0);
+			GUI.DrawTexture(Rect(274, 91, 478, 468), startPosterTex, ScaleMode.ScaleToFit, true, 0);
 			
-			if (startComicCurrentFrame > 1){
-				if (GUI.Button(Rect(287, 310, 49, 49), "", startLeftButton)){
-					audio.Play();
-					startComicCurrentFrame--;
-				}
-			}
-			if  (startComicCurrentFrame < 5){
-				if (GUI.Button(Rect(690, 310, 49, 49), "", startRightButton)){
-					audio.Play();
-					startComicCurrentFrame++;
-				}
-			}
 		}
 		
 		if (currentStartTexture == "normal"){
@@ -330,12 +326,12 @@ function OnGUI () {
 	if (currentScreen == "scores"){
 	
 		GUI.Label(Rect (Screen.width*0.25 - 100, Screen.height / 5 - 20, 30, 500), scoreRankNumbers, scoreStyle);
-		GUI.Label(Rect (Screen.width*0.25 - 65, Screen.height / 5 - 20, 80, 500), scoreN1Label, scoreStyle);
-		GUI.Label(Rect (Screen.width*0.25 + 30, Screen.height / 5 - 20, 50, 500), scoreN2Label, scoreNStyle);
+		GUI.Label(Rect (Screen.width*0.25 - 55, Screen.height / 5 - 20, 90, 500), scoreN1Label, scoreStyle);
+		GUI.Label(Rect (Screen.width*0.25 + 40, Screen.height / 5 - 20, 50, 500), scoreN2Label, scoreNStyle);
 		
 		GUI.Label(Rect (Screen.width*0.75 - 95, Screen.height / 9 - 35 + 250, 30, 500), scoreRankNumbers, scoreStyle);
-		GUI.Label(Rect (Screen.width*0.75 - 55, Screen.height / 9 - 35 + 250, 80, 500), scoreD1Label, scoreStyle);
-		GUI.Label(Rect (Screen.width*0.75 + 40, Screen.height / 9 - 35 + 250, 50, 500), scoreD2Label, scoreNStyle);
+		GUI.Label(Rect (Screen.width*0.75 - 45, Screen.height / 9 - 35 + 250, 90, 500), scoreD1Label, scoreStyle);
+		GUI.Label(Rect (Screen.width*0.75 + 50, Screen.height / 9 - 35 + 250, 50, 500), scoreD2Label, scoreNStyle);
 		
 		if (GUI.Button(Rect(100, 450, buttonWidth, buttonHeight), "", backButtonStyle)){
 			audio.Play();
@@ -390,7 +386,16 @@ function OnGUI () {
 		if (showMoreCredits == true)
 			GUI.DrawTexture(Rect(288, 112, 387, 230), moreCreditsTexture, ScaleMode.ScaleToFit, true, 0);
 	}
-	GUI.DrawTexture(Rect(Screen.width / 2 - 50, Screen.height / 2 - 36, 100, 72), cameraBoxTex, ScaleMode.ScaleToFit, true, 0);
+	if (musicMute == false){
+		musicObject.audio.volume = musicDefaultVolume;
+		musicButton.normal.background = musicOnTex;
+	} else {
+		musicObject.audio.volume = 0.0;
+		musicButton.normal.background = musicOffTex;
+	}
+	if (GUI.Button(Rect(45, 540, 32, 32), "", musicButton))
+		musicMute = !musicMute;
+	//GUI.DrawTexture(Rect(Screen.width / 2 - 50, Screen.height / 2 - 36, 100, 72), cameraBoxTex, ScaleMode.ScaleToFit, true, 0);
 }
 
 static function RankKillScore(initialString: String, curScore:float, level:String){
@@ -414,10 +419,10 @@ static function RankKillScore(initialString: String, curScore:float, level:Strin
 				}
 		}
 		
-		PlayerPrefsX.SetIntArray ("ScoreBoardN", aScoresN);
-		PlayerPrefsX.SetStringArray ("ScoreBoardI", aScoresI);
+		PlayerPrefsX.SetIntArray ("ScoreBoardv1N", aScoresN);
+		PlayerPrefsX.SetStringArray ("ScoreBoardv1I", aScoresI);
 		if (KongregateAPI.isKongregate == true)
-			Application.ExternalCall("kongregate.stats.submit","HighScoreNormal",curScore);
+			Application.ExternalCall("kongregate.stats.submit","HighScoreNormal",aScoresN[0]);
 	} else if (level == "dark"){
 		if (curScore != 0){
 	
@@ -434,10 +439,10 @@ static function RankKillScore(initialString: String, curScore:float, level:Strin
 					}
 				}
 		}
-		PlayerPrefsX.SetIntArray ("DScoreBoardN", aDScoresN);
-		PlayerPrefsX.SetStringArray ("DScoreBoardI", aDScoresI);
+		PlayerPrefsX.SetIntArray ("DScoreBoardv1N", aDScoresN);
+		PlayerPrefsX.SetStringArray ("DScoreBoardv1I", aDScoresI);
 		if (KongregateAPI.isKongregate == true)
-			Application.ExternalCall("kongregate.stats.submit","HighScoreDark",curScore);
+			Application.ExternalCall("kongregate.stats.submit","HighScoreDark",aDScoresN[0]);
 	}
 }
 

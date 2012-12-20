@@ -1,6 +1,5 @@
 #pragma strict
 
-private var trans:Transform;
 var asterPlayer:AsteroidsPlayer;
 var asterSpawnSound:Transform;
 
@@ -55,8 +54,6 @@ var maxBurstLev:float;
 var asteroidThreatLev = 0.0;
 var threatBeyondMaxLev = 0.0;
 
-var destroyAsteroids = false;
-
 static var asteroidNumber:int;
 
 var firstRoundStart = false;
@@ -71,18 +68,17 @@ var round2HugeSpawn = false;
 
 function Start () {
 	
-	asteroidNumber = 0;
-	
-	trans = transform;
-	
+	asteroidNumber = 0;	
 	
 	asterPlayer = GameObject.Find("PlayerShip").GetComponent(AsteroidsPlayer);
 	
 }
 
+// Spawns asteroid field at beginning of round. Coordinates and size distribution are randomized. 
+// Number of asteroids starts with a base number that is increased as the rounds progress.
+// Huge class asteroids start at round 2 and Gigantic asteroids start at round 3. Neither Huge nor Gigantic spawn in Practice Mode.
 function GenerateAsteroids(){
 
-	//var numAsteroids = Random.Range(minAsteroids, maxAsteroids);
 	if (Application.loadedLevelName == "PracticeLevel")
 		round2HugeSpawn = true;
 	var numAsteroids = numAsteroidsStart + ((CameraScript.roundNum - 1) * numAsteroidsLevUp);
@@ -98,7 +94,6 @@ function GenerateAsteroids(){
 
 	
 	for (var i = 0; i < numAsteroids; i++) {
-	//while (numAsteroids > 0){
 		percentChanceCalc = Random.Range(0.0, 100.0);
 		var asRotx = Random.Range(0.0,360.0);
 		var asRoty = Random.Range(0.0,360.0);
@@ -123,7 +118,6 @@ function GenerateAsteroids(){
 							asteroid.rigidbody.AddRelativeForce(Vector3.forward * Random.Range(minSpd, maxSpd));
 							asteroid.GetComponent(AsteroidNewRoundScale).enabled = true;
 							round2HugeSpawn = true;
-							//numAsteroids -= asterHPoints;
 						}else{
 							i--;
 						}
@@ -136,7 +130,6 @@ function GenerateAsteroids(){
 						asteroid = Instantiate(asteroidPrefabB, new Vector3(asX, 3, asZ), Quaternion.Euler(asRotx, asRoty, asRotz));
 						asteroid.rigidbody.AddRelativeForce(Vector3.forward * Random.Range(minSpd, maxSpd));
 						asteroid.GetComponent(AsteroidNewRoundScale).enabled = true;
-						//numAsteroids -= asterBPoints;
 					}else{
 						i--;
 					}
@@ -147,7 +140,6 @@ function GenerateAsteroids(){
 						asteroid = Instantiate(asteroidPrefabM, new Vector3(asX, 3, asZ), Quaternion.Euler(asRotx, asRoty, asRotz));
 						asteroid.rigidbody.AddRelativeForce(Vector3.forward * Random.Range(minSpd, maxSpd));
 						asteroid.GetComponent(AsteroidNewRoundScale).enabled = true;
-						//numAsteroids -= asterMPoints;
 					}else{
 						i--;
 					}
@@ -158,18 +150,17 @@ function GenerateAsteroids(){
 						asteroid = Instantiate(asteroidPrefabS, new Vector3(asX, 3, asZ), Quaternion.Euler(asRotx, asRoty, asRotz));
 						asteroid.rigidbody.AddRelativeForce(Vector3.forward * Random.Range(minSpd, maxSpd));
 						asteroid.GetComponent(AsteroidNewRoundScale).enabled = true;
-						//numAsteroids -= asterSPoints;
 					}else{
 						i--;
 					}
 				}
 		}
-	//asterSpawnSound.GetComponent(AsteroidNewRoundSound).enabled = true;
 	asterSpawnSound.audio.Play();
 }
 
 function Update() {
 
+// Delays the asteroid field in first round to allow player fade in.
 	if (asterPlayer.start == true && firstRoundStart == false){
 		GenerateAsteroids();
 		firstRoundStart = true;
@@ -177,6 +168,9 @@ function Update() {
 	//if (asteroidNumber !=0)
 		//Debug.Log(asteroidNumber);
 	
+// The Burst Level influences how much force is added to asteroids as they are spawned.
+// At a certain point, asteroids become too vigerous when the Burst Level becomes large. 
+// threatBeyondMaxLev is there to add damage to the player if they reach the Maximum Burst Level to continue difficulty progression.
 	if (curBurstLev < maxBurstLev){
 		curBurstLev = (ScoreKeeper.score - (ScoreKeeper.score % burstLevUp)) / burstLevUp;
 	} else if (curBurstLev == maxBurstLev){
@@ -191,15 +185,16 @@ function Update() {
 	asteroidThreatLev = curBurstLev + threatBeyondMaxLev;
 
 }
-
+// The following are all the asteroid spawn functions
 function MakeAsteroidH(x:float, z:float, pos:Transform){
 	
 	var asteroidH = Instantiate(asteroidPrefabH, Vector3(pos.position.x + x, 3, pos.position.z + z), Quaternion.Euler(Random.Range(1.0,359.9), Random.Range(1.0,359.9), Random.Range(1.0,359.9)));
-
-       		//asteroidH.trans.eulerAngles.y = Random.Range(1,359);
+			
+       	//Inherit original asteroid's velocity and direction
       		asteroidH.rigidbody.velocity = pos.rigidbody.velocity;
 			asteroidH.rigidbody.angularVelocity = pos.rigidbody.angularVelocity;
 			
+		// Add random amount of force in random direction
 			asteroidH.rigidbody.AddForce(asteroidH.forward * Random.Range(burstSpdMinM, burstSpdMaxM));
 }
 
@@ -207,7 +202,6 @@ function MakeAsteroidB(x:float, z:float, pos:Transform){
 	
 	var asteroidB = Instantiate(asteroidPrefabB, Vector3(pos.position.x + x, 3, pos.position.z + z), Quaternion.Euler(Random.Range(1.0,359.9), Random.Range(1.0,359.9), Random.Range(1.0,359.9)));
 
-       		//asteroidB.trans.eulerAngles.y = Random.Range(1,359);
       		asteroidB.rigidbody.velocity = pos.rigidbody.velocity;
 			asteroidB.rigidbody.angularVelocity = pos.rigidbody.angularVelocity;
 			
@@ -215,23 +209,18 @@ function MakeAsteroidB(x:float, z:float, pos:Transform){
 }
 
 function MakeAsteroidM(x:float, z:float, pos:Transform){
-	//Spawn Medium asteroids (2)
+
    	var asteroidM = Instantiate(asteroidPrefabM, Vector3(pos.position.x + x, 3, pos.position.z + z), Quaternion.Euler(Random.Range(1.0,359.9), Random.Range(1.0,359.9), Random.Range(1.0,359.9)));
 
-       	//Random Angle
-       	//Inherit original asteroid's velocity and direction
-       	//asteroidM.trans.eulerAngles.y = Random.Range(1.0,359.9);
       	asteroidM.rigidbody.velocity = pos.rigidbody.velocity;
 		asteroidM.rigidbody.angularVelocity = pos.rigidbody.angularVelocity;
 			
-		//Give Medium asteroid random amount of force
 		asteroidM.rigidbody.AddForce(asteroidM.forward * Random.Range(burstSpdMinM, burstSpdMaxM));
 }
 
 function MakeAsteroidS(x:float, z:float, pos:Transform){
 	var asteroidS = Instantiate(asteroidPrefabS, Vector3(pos.position.x + x, 3, pos.position.z + z), Quaternion.Euler(Random.Range(1.0,359.9), Random.Range(1.0,359.9), Random.Range(1.0,359.9)));
 
-       		//asteroidS.trans.eulerAngles.y = Random.Range(1,359);
       		asteroidS.rigidbody.velocity = pos.rigidbody.velocity;
 			asteroidS.rigidbody.angularVelocity = pos.rigidbody.angularVelocity;
 			

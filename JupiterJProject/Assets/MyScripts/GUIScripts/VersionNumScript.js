@@ -1,6 +1,6 @@
 #pragma strict
 
-static var versionNum = "v0.4";
+static var versionNum = "v1.01";
 
 function Start () {
 

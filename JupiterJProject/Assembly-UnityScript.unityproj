@@ -62,10 +62,11 @@
      <Compile Include="Assets\MyScripts\GUIScripts\DmgTicker.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\FieldCharge.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\GameTime.js" />
+     <Compile Include="Assets\MyScripts\GUIScripts\MenuSounds\MainIntroSuppressor.js" />
+     <Compile Include="Assets\MyScripts\GUIScripts\MenuSounds\MainSoundBitesTrigger.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\MenuTextureEnabled.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\RadarLight.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\RecordTime.js" />
-     <Compile Include="Assets\MyScripts\GUIScripts\ResourceTicker.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\ReturnOrRestart.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\RoundNum.js" />
      <Compile Include="Assets\MyScripts\GUIScripts\ScoreKeeper.js" />
@@ -98,7 +99,6 @@
      <Compile Include="Assets\MyScripts\PlayerStuff\CameraExponentialZoom.js" />
      <Compile Include="Assets\MyScripts\PlayerStuff\CameraFlatZoom.js" />
      <Compile Include="Assets\MyScripts\PlayerStuff\CameraScript.js" />
-     <Compile Include="Assets\MyScripts\PlayerStuff\ClearLevel.js" />
      <Compile Include="Assets\MyScripts\PlayerStuff\FollowMouse.js" />
      <Compile Include="Assets\MyScripts\PlayerStuff\GiveRadar.js" />
      <Compile Include="Assets\MyScripts\PlayerStuff\PlayerChildPositionFix.js" />

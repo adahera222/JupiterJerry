@@ -1,9 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\MenuScripts\Menu.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\PlayerStuff\AsteroidsPlayer.js">
     <Files>
-      <File FileName="Assets\MyScripts\KongregateAPI.js" Line="12" Column="8" />
-      <File FileName="Assets\MyScripts\MenuScripts\Menu.js" Line="420" Column="4" />
+      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidBehaviour.js" Line="294" Column="1" />
+      <File FileName="Assets\MyScripts\AsteroidScripts\AsteroidSpawn.js" Line="249" Column="2" />
+      <File FileName="Assets\MyScripts\PlayerStuff\CameraScript.js" Line="169" Column="36" />
+      <File FileName="Assets\MyScripts\PlayerStuff\AsteroidsPlayer.js" Line="261" Column="29" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

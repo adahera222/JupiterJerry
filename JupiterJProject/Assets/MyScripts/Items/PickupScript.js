@@ -8,14 +8,9 @@ var collected = false;
 var itemType:String;
 var weaponType:String;
 var isChild = false;
-var darkLevGlow:Transform;
 
 function Start() {
 
-	if (isChild == false && Application.loadedLevelName == "DarkLevel"){
-		var pickupGlow = Instantiate(darkLevGlow, transform.position, Quaternion.identity);
-		pickupGlow.GetComponent(PickupGlowScript).followPickup = transform; 
-	}
 	Destroy(gameObject, lifeTime);
 
 }

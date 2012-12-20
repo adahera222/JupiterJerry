@@ -7,6 +7,7 @@ var buttonWidth=150.0;
 var buttonHeight=50.0;
 static var volSliderValue = AudioListener.volume * 100;
 var volSliderStyle:GUIStyle;
+var volThumbStyle:GUIStyle;
 var volTextStyle:GUIStyle;
 var controlRightTex:Texture;
 var controlLeftTex:Texture;
@@ -48,6 +49,8 @@ var roundClearStyle:GUIStyle;
 
 var initialStyle:GUIStyle;
 var initials:String = "---";
+var submittedInitials = false;
+var submittedStyle:GUIStyle;
 
 var player:GameObject;
 var asterPlayer:AsteroidsPlayer;
@@ -100,6 +103,7 @@ var waveTex:Texture;
 var beamTex:Texture;
 
 var weaponButton:GUIStyle;
+var scoreSaved = false;
 
 function Start(){
 
@@ -163,7 +167,6 @@ function FixedUpdate(){
 				EnableDisablePlayer();
 				asteroidsClear = false;
 				continueButtonPressChk = false;
-				asteroidSpawn.destroyAsteroids = false;
 				
 			}
 		}
@@ -180,6 +183,12 @@ function LateUpdate () {
 	
 	if (Input.GetButtonDown("Zoom"))
 		zoomOut = !zoomOut; 
+	
+	if (Input.GetAxis("Mouse ScrollWheel") > 0)
+		zoomOut = false;
+		
+	if (Input.GetAxis("Mouse ScrollWheel") < 0)
+		zoomOut = true;
 	
 	if (zoomOut == true){
 	
@@ -224,9 +233,8 @@ function OnGUI(){
 		if (currentScreen == "main"){
 			GUI.Label(Rect(Screen.width / 2 - 163, Screen.height * 0.07, 326, 68), "Game Paused", restartStyle);
 			
-			GUI.Label(Rect(830, 220, 70, 40), "Volume", volTextStyle);
-			GUI.Box(Rect(855, 260, 20, 120), GUIContent.none, volSliderStyle);
-			volSliderValue = GUI.VerticalSlider(Rect(860, 270, 20, 100), volSliderValue, 100.0, 0.0);
+			GUI.Label(Rect(700, 240, 70, 40), "Volume", volTextStyle);
+			volSliderValue = GUI.VerticalSlider(Rect(730, 275, 20, 100), volSliderValue, 100.0, 0.0, volSliderStyle, volThumbStyle);
 		
 			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.2, buttonWidth, buttonHeight), "", returnToGameButton)){
 				audio.Play();
@@ -398,17 +406,36 @@ function OnGUI(){
 			GUI.DrawTexture(Rect(237, 100, 326, 67), gameOverTex, ScaleMode.ScaleToFit);
 			GUI.Label(Rect(Screen.width / 2 - 350, Screen.height * 0.2, 700, 210), "You earned a new high score!", restartStyle);
 			GUI.Label(Rect(Screen.width / 2 - 250, 270, 300, 60), "Input Initials:", restartStyle);
+			if (submittedInitials == true)
+				GUI.Label(Rect(Screen.width / 2 + 20, 255, 120, 15), "Score submitted!", submittedStyle);
 			GUI.SetNextControlName("InputInitials");
 			initials = GUI.TextField(Rect(Screen.width / 2 + 20, 270, 120,60), initials.ToUpper(), 3, initialStyle);
 			GUI.FocusControl("InputInitials");
+			
+			if (Event.current.keyCode == KeyCode.Return && scoreSaved == false){
+				submittedInitials = true;
+				scoreSaved = true;
+				SaveScores();
+				audio.Play();
+			}
 			
 		} else if ((RestartCheck.crash == true && Menu.aDScoresN[9] < ScoreKeeper.score) && Application.loadedLevelName == "DarkLevel"){
 		
 			GUI.DrawTexture(Rect(237, 100, 326, 67), gameOverTex, ScaleMode.ScaleToFit);
 			GUI.Label(Rect(Screen.width / 2 - 350, Screen.height * 0.2, 700, 210), "You earned a new high score!", restartStyle);
 			GUI.Label(Rect(Screen.width / 2 - 250, 270, 300, 60), "Input Initials:", restartStyle);
+			if (submittedInitials == true)
+				GUI.Label(Rect(Screen.width / 2 + 20, 255, 120, 15), "Score submitted!", submittedStyle);
+			GUI.SetNextControlName("InputInitials");
 			initials = GUI.TextField(Rect(Screen.width / 2 + 20, 270, 120,60), initials.ToUpper(), 3, initialStyle);
 			GUI.FocusControl("InputInitials");
+			
+			if (Event.current.keyCode == KeyCode.Return && scoreSaved == false){
+				submittedInitials = true;
+				scoreSaved = true;
+				SaveScores();
+				audio.Play();
+			}
 			
 		} else if (RestartCheck.crash == true)
 			GUI.DrawTexture(Rect(237, 170, 326, 67), gameOverTex, ScaleMode.ScaleToFit);
@@ -483,12 +510,14 @@ function OnGUI(){
 				}
 			}
 			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.57, buttonWidth, buttonHeight), "", restartButton)){
-				SaveScores();
+				if (scoreSaved == false)
+					SaveScores();
 				GetComponent(ReturnOrRestart).returnOrRestart = "restart";
 				GetComponent(ReturnOrRestart).enabled = true;
 			}
 			if (GUI.Button(Rect(Screen.width / 2 - buttonWidth / 2, Screen.height * 0.57 + 90, buttonWidth, buttonHeight), "", returnToMenuButton)){
-				SaveScores();
+				if (scoreSaved == false)
+					SaveScores();
 				GetComponent(ReturnOrRestart).returnOrRestart = "return";
 				GetComponent(ReturnOrRestart).enabled = true;
 			}
@@ -529,7 +558,7 @@ function OnGUI(){
 			GUI.DrawTexture(Rect(681, 541, 76, 26), fieldChargeOff);
 	}	
 	
-	GUI.DrawTexture(Rect(Screen.width / 2 - 50, Screen.height / 2 - 36, 100, 72), cameraBoxTex, ScaleMode.ScaleToFit, true, 0);
+	//GUI.DrawTexture(Rect(Screen.width / 2 - 50, Screen.height / 2 - 36, 100, 72), cameraBoxTex, ScaleMode.ScaleToFit, true, 0);
 }
 
 function SaveScores(){
@@ -547,7 +576,8 @@ function SaveScores(){
 function EnableDisablePlayer(){
 	
 	asterPlayer.enabled = !asterPlayer.enabled;
-	firePulse.enabled = !firePulse.enabled;
+	if (asterPlayer.start == true)
+		firePulse.enabled = !firePulse.enabled;
 	fireBomb.enabled = !fireBomb.enabled;
 	fireMini.enabled = !fireMini.enabled;
 	shieldUp.enabled = !shieldUp.enabled;
